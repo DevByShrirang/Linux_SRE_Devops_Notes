@@ -7,7 +7,7 @@ bash is type of shell- Its specific implementation of shell.
 -------------------------------------------------------------------------------------------------------------------------
 du -sh -- disk usage 
 du -sh /home/user 
--------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
 find /  - search from root directory
 find .  - search from current directory.
 
@@ -17,6 +17,10 @@ find- command is used for searching files and directories based on name, size, t
       find / -type f -size +100M  --> find files larger than +100M.
       find /var/log -type f -mtime -7 --> find files modified in last 7 days.
       find / -type f -perm 777  -->  find files with 777 permissions.
+
+find all log files inside /var/log
+
+
 
 locate -  used to quickly search for files by name. faster than find bcz it doesnt search filesystem in real time.
       locate filename.txt  --> finds all paths that contain filename.txt

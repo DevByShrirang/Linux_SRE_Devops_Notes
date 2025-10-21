@@ -105,3 +105,14 @@ What they’re testing: OS-level diagnostic skills, familiarity with Linux tools
 First, I run **top/htop** to identify the process consuming the most CPU. Then I use 
 **ps aux --sort=-%cpu | head -n 10** - this command will show top 10 processes by CPU usages
 **less /var/log/syslog** / **less /var/log/messages** to check logs
+
+
+
+What is the use of SSH?
+
+--> SSH- called as secure shell. SSH is administrative protocol
+
+
+
+
+

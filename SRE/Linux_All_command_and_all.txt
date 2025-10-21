@@ -23,7 +23,11 @@ find file by name  --> find /home -name "config.yaml"
     case sensitive --> find /home -iname "config.yaml"
 find all configuration files in /etc --> find /etc -type f -name "*.conf"
 find file greater than 100MB --->  find /var/log -size +100M
-find files larger than 500 Mb in /tmp and delete -->
+find files larger than 500 Mb in /tmp and delete --> find /tmp -type f -name "*.log" -size +500M -exec rm -i {} \;
+
+
+
+
   
 
 

@@ -18,7 +18,13 @@ find- command is used for searching files and directories based on name, size, t
       find /var/log -type f -mtime -7 --> find files modified in last 7 days.
       find / -type f -perm 777  -->  find files with 777 permissions.
 
-find all log files inside /var/log
+find all .log files inside /var/log and its subdirectories.-- find /var/log -name "*log"
+find file by name  --> find /home -name "config.yaml"
+    case sensitive --> find /home -iname "config.yaml"
+find all configuration files in /etc --> find /etc -type f -name "*.conf"
+find file greater than 100MB --->  find /var/log -size +100M
+find files larger than 500 Mb in /tmp and delete -->
+  
 
 
 

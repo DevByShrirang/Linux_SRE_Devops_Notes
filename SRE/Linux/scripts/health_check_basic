@@ -1,0 +1,14 @@
+#!/bin/bash
+
+
+echo "running health check on $(hostname)"
+echo "Date: $(date)"
+echo "cpu Load: $(uptime)"
+echo "Disk Usage: $(df -h)"
+echo "Memery usage: $(free -m)"
+
+
+*/2 * * * * /home/ubuntu/health_check.sh >> /home/ubuntu/log/system_health.log 2>&1
+
+
+above script will run every 2min

@@ -1,0 +1,61 @@
+you need to find out why a server is running slowly. what steps would you take?
+--- we will use below command to troubleshoot ths issue.
+top /htop -- we will check cpu load, memory usage and do indentify any process consuming excessive resource.
+iostat and iotop -- to check disk i/o 
+free -m - for memory usage 
+df -h  - for disk space
+netstat or ss - to check any network related issue.
+/var/log - to review system logs for any errors or warnings.
+
+
+Que --) A users home directory is filling up disk space on the root partition. how would you resolve this?
+--Check the disk usage with du -sh /home/user to identify large files or directories.
+if possible move large files to another partition with more space using mv or rsync.
+alternatively advise the user to delete or compress (tar , gzip ) unnecessary files. 
+
+Que ) -- SSH service on server is being targeted by brute force attacks what steps would you take to minimise this?
+--Change the default port from 22 to something less common in /etc/ssh/sshd_config
+--implement key-based authentication and disable password authentication.
+use fail2ban to block ips after a certein number of failed login attempts.
+allow only specific IP addresses to connect using ip tables or ufw.
+
+Que) you need to do automate backup of directory to remote server.how would you do it?
+use rsync for efficient file transfrer.set up ssh key based authentication between local and remote server.
+write a script to run rsync with the desired option and schedule it using cron by adding a cron job(crontab -e)4
+
+Que) Critical server has crashed and wont restart.what steps do you take to troubleshoot and resolve the issue?
+-- Check the status and logs of the service using systemctl status servicename and journalctl -u servicename.
+-- looks for any configuration errors or missing dependancies.
+verify the  configuration file syntax (nginx-t for nginx apachectl configtest for apache)
+resolve any issue found and restart the service with systemctl restart servicename.
+
+Que ) you need to create a new user and ensure they have no shell access. how would you do this?
+     useradd -s /sbin/nologin username
+
+Que) your server is running out of memory and starting to swap heavily. what actions would you take?
+First identify which processes of using high memory.
+identify memory hopping processes using top or ps aux --sort=-%mem
+then consider stoping and restarting these processes.
+Increase swap space by creating new swap file if needed.
+optimize application memory usage or add more physical memory to the server.
+
+Que ) you need to restrict a users disk usage. how would you implement this?
+
+
+
+que)   A service needs to start on boot how would you ensure this?
+Enable the service using systecmtl enable servicename. this create symlinks for the service to start on boot.
+verify the systemctl is-enabled servicename.
+
+que) web server showing 502 bad gateway error. what steps do you take to troubleshoot?
+--> check the status of both the web server (Nginx) and the backend service it proxies to (eg php)
+verify the backend service is reachable and accessible check configuration file for any misconfigurations.
+ensure sufficient resources (memory , cpu ) are available.
+
+
+Que)  you need to schedule a recurring task to clean temporary files. how would you do this?
+write a script to clean temporary files (#!/bin/bash \n rm -rf /tmp/*)
+make it executable ( chmod +x scriptname.sh)
+add a cronjob to execute the script at desired intervals using crontab -e (* * * * *)
+/path/to/scriptname.sh
+

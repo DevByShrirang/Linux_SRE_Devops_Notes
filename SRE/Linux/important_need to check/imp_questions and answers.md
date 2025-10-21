@@ -110,7 +110,10 @@ First, I run **top/htop** to identify the process consuming the most CPU. Then I
 
 What is the use of SSH?
 
---> SSH- called as secure shell. SSH is administrative protocol
+--> SSH- called as secure shell. SSH is administrative protocol used to connect and manage remote servers over the internet. SSH is secured encrypted version
+     of the previous known telnet which was unencrypted and not secure. SSH ensures that the communication with the remote server occurs in encrypted format.
+
+
 
 
 

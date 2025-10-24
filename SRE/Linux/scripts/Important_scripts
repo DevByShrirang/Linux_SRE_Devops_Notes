@@ -34,3 +34,18 @@ Now passwordless authentication has been successful.
 scp /home/ubuntu/test1.txt ubuntu@10.0.0.49:/home/ubuntu/ <--- command used to trasnfer file from SERVER-A to SERVER-B.
 
 
+
+
+root@ip-10-0-0-192:~# chmod +x /home/ubuntu/health_check_basics.sh
+
+
+
+
+
+
+
+
+
+
+
+

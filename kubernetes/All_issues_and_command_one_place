@@ -1,3 +1,5 @@
+Scheduler pod is in unhealthy state.
+
 controlplane:~$ kubectl get componentstatus
 Warning: v1 ComponentStatus is deprecated in v1.19+
 NAME                 STATUS    MESSAGE   ERROR
@@ -86,11 +88,26 @@ preferred duringscheduling ignored during execution
 required duringscheduling ignored during execution
 
 
+requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: region
+            operator: In
+            values:
+            - india
+      preferredDuringSchedulingIgnoredDuringExecution:
+      - weight: 1
+        preference:
+          matchExpressions:
+          - key: zone
+            operator: In
+            values:
+            - power1a
 
 
 
-
-
+Above exaample shows that pod will be = placed only on node which is having label region:india. and preferredDuringSchedulingIgnoredDuringExecution shows that pod 
+will place on node which is having label zone:power1a. pod will place on other node aslo if same label not there.
 
 
 

@@ -33,6 +33,28 @@ Now passwordless authentication has been successful.
 
 scp /home/ubuntu/test1.txt ubuntu@10.0.0.49:/home/ubuntu/ <--- command used to trasnfer file from SERVER-A to SERVER-B.
 
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#!/bin/bash
+# target server details
+SERVER="ubuntu@10.0.0.49"
+LOG_DIR="/home/ubuntu/log"
+LOG_FILE="$LOG_DIR/system_health.log"
+
+#create log directory
+mkdir -p $"LOG_DIR"
+
+echo "running health check on $(hostname)"
+echo "Date: $(Date)"
+echo "cpu load: $(uptime)"
+echo "Disk usage: $(df -h)"
+echo "Memory Usage: $(free -m)"
+
+
+crontab -e
+*/2 * * * * /home/ubuntu/health_check.sh >> /home/ubuntu/log/system_health.log 2>&1
+
+
+
 
 
 

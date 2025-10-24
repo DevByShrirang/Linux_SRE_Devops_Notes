@@ -90,9 +90,7 @@ adminssion controller- admission controller is piece of code that runs inside ap
 --------------------------------------------------------------------------------------------------------------------
 
 static pod -
-static pod is managed directly by kubelet, not by the kubernetes API server. kubelet ensures that pod is always running by reading its pod defination file directly from
-local filesystem.
-pod is created by kubelet automatically on node.
+static pod is managed directly by kubelet, not by the kubernetes API server. kubelet ensures that pod is always running by reading its pod defination file directly from local filesystem. pod is created by kubelet automatically on node.
 Here any yaml file we put inside /etc/kubernetes/manifiest will automatically become a runnung static pod.
 
 In a self-managed kubeadm cluster, the control-plane components are deployed as static pods on the master node.
@@ -104,11 +102,13 @@ kube-controller-manager.yaml
 kube-scheduler.yaml
 
 each of this yaml defines static pod for the respective control-plane component.
-
 The kubelet on master node automatically run this pods.
 
 Mirror pods:-  static pod created by kubelet and they dont live in etcd but the kubelet reports their status to API server.
 then API server creates mirror pod- mirror pod id read only copies of static pod. just for visibility.
 
 Static pods are used to run control-plane components like the API server, etcd, scheduler, and controller-manager in kubeadm clusters. In contrast, EKS hides this because its control plane is fully managed by AWS.”
+
+
+
 

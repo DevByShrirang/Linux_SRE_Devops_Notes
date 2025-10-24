@@ -1,1 +1,33 @@
+controlplane:~$ kubectl get componentstatus
+Warning: v1 ComponentStatus is deprecated in v1.19+
+NAME                 STATUS    MESSAGE   ERROR
+etcd-0               Healthy   ok        
+scheduler            Healthy   ok        
+controller-manager   Healthy   ok        
+
+controlplane:/etc/kubernetes/manifests$ ls
+etcd.yaml  kube-apiserver.yaml  kube-controller-manager.yaml  kube-scheduler.yaml
+controlplane:/etc/kubernetes/manifests$ sudo mv /etc/kubernetes/manifests/kube-scheduler.yaml /root/
+controlplane:/etc/kubernetes/manifests$ ls
+etcd.yaml  kube-apiserver.yaml  kube-controller-manager.yaml
+controlplane:/etc/kubernetes/manifests$ cd          
+controlplane:~$ kubectl run testpod --image=nginx
+pod/testpod created
+controlplane:~$ kubectl get pods                 
+NAME      READY   STATUS    RESTARTS   AGE
+testpod   0/1     Pending   0          11s
+
+controlplane:~$ sudo mv /root/kube-scheduler.yaml /etc/kubernetes/manifests/
+controlplane:~$ kubectl get pods
+NAME      READY   STATUS              RESTARTS   AGE
+testpod   0/1     ContainerCreating   0          6m47s
+controlplane:~$ kubectl get pods
+NAME      READY   STATUS    RESTARTS   AGE
+testpod   1/1     Running   0          6m58s
+
+
+
+
+
+
 

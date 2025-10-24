@@ -1,0 +1,74 @@
+Namespace
+service Account
+RBAC (Role / ClusterRole + RoleBinding / ClusterRoleBinding)
+secrets
+configmap
+PV 
+PVC
+Limit range/Resource Quota
+Init containers
+deployment/statefulset/Daemonset/Job/cronjob
+Service
+HPA(horizonal pod autoscaler)
+Network policy
+
+we need to manage all yaml files individually to run application.
+to deploy application we need to run all yaml files manually. very frustrating and time taking.
+
+Helm:- using install you will make it easy.
+1 install - 1 update --1 remove
+
+
+Registry and repository-
+Registry is the place where we host repository.
+Github is registry where we host git repository.
+
+repository is having source code or binary or docker image.
+
+helm is the best way to find share and use software built for k8 from Chart repositories.
+written in GO supporting all platforms
+it helps us to manage k8 application.
+Helm is maintained by CNCF-(cloud native computing foundation)
+
+In helm repository is collection of Helm Chart.
+helm is utility tool and need to install where we install kubectl.
+using helm we deploy packages in different different namespaces.
+
+Helm advantanges:-
+Helm chart manage complexity
+easy update 
+easy for sharing chart
+Rollback is very easy using helm.
+
+first we need to download chart from registry to local then we deploy this chart in cluster.charts are in yaml format. we will create our own chart and shared it on registry so other peole will use it.
+
+Process:-
+First we create Chart and upload it to repository(Nexus repository/JFrog Artifactory) and people who wants to delpoy that chart we will get it and download it and do installation on kubernetes.
+
+Before helm we need to update every time yaml files when we required changes and this task very time consuming, and we need to maintain yaml files for every environment. with using helm with feature of values.yaml we will keep seperate values.yaml files
+for each environment.
+
+when every time helm is via chart then rew relase will be created which is named, versioned , instance of that deployment.
+every release keeps track of everthing, value, chart version, state of the deployment.
+realease having big advantages in case of upgrade and rollbacks. we have 5 release.. 4th is the new feature, at 5th broke the app 
+due to misconfiguration then we can easily rollback on realease 3 with simple single command using
+helm rollback <realease> 3.
+
+every release will be created in the same release namespace.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

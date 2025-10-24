@@ -1,7 +1,7 @@
 linux
 
 Shell is command-line interpreter- it takes the command you type and passes them to the kernel for execution.
-bash is type of shell- Its specific implementation of shell.
+bash is type of shell- Its specific implementation of shell..
 
 
 -------------------------------------------------------------------------------------------------------------------------

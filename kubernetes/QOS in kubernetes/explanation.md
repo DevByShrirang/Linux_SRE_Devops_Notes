@@ -2,7 +2,7 @@ Quality of Service (QoS) in Kubernetes determines how the kubelet prioritizes Po
 helps to manage resource efficiently.
 types:--
 Gauranteed - 
-     pod is guaranteed getting requested resources. requests=limits for both cpu & memory -best  for production-critical workloads.
+pod is guaranteed getting requested resources. requests=limits for both cpu & memory -best  for production-critical workloads.
 
 burstable -  pod gets resources it requests but can use more if available. --suitable for flexible workloads.
 

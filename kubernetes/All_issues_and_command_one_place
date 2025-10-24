@@ -110,6 +110,25 @@ Above exaample shows that pod will be = placed only on node which is having labe
 will place on node which is having label zone:power1a. pod will place on other node aslo if same label not there.
 
 
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Resource Quota-
+
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: team1-quota
+  namespace: dev
+spec:
+  hard:
+    requests.cpu: "4"
+    requests.memory: 8Gi
+    limits.cpu: "8"
+    limits.memory: 16Gi
+    pods: "20"
+    persistentvolumeclaims: "5"
+    services: "10"
+    configmaps: "20"
+    secrets: "20"
 
 
 

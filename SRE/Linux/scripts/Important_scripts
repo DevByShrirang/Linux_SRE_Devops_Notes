@@ -53,11 +53,6 @@ echo "Memory Usage: $(free -m)"
 crontab -e
 */2 * * * * /home/ubuntu/health_check.sh >> /home/ubuntu/log/system_health.log 2>&1
 
-
-
-
-
-
 root@ip-10-0-0-192:~# chmod +x /home/ubuntu/health_check_basics.sh
 
 

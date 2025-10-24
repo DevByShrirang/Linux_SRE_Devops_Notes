@@ -1,0 +1,194 @@
+pipeline {
+    agent any
+
+    environment {
+        SONARQUBE_SERVER = 'SonarQubeServer'     // SonarQube server name configured in Jenkins
+        SONAR_PROJECT_KEY = 'microservices-project'  // Sonar project key (can be same as repo name)
+        SONAR_PROJECT_NAME = 'microservices-project' // Display name in SonarQube
+    }
+
+    stages {
+
+        stage('Checkout') {
+            steps {
+                echo "📥 Checking out develop branch..."
+                checkout([$class: 'GitSCM',
+                    branches: [[name: "*/develop"]],
+                    userRemoteConfigs: [[
+                        url: 'https://github.com/DevByShrirang/sample-spring-microservices-kubernetes.git'
+                    ]]
+                ])
+            }
+        }
+
+        stage('Build with Maven') {
+            steps {
+                echo "⚙️ Running Maven clean package..."
+                sh 'mvn clean package -DskipTests'
+            }
+        }
+
+        stage('SonarQube Analysis') {
+            steps {
+                echo "🔍 Running SonarQube analysis..."
+                withSonarQubeEnv('SonarQubeServer') {
+                    sh '''
+                        mvn sonar:sonar \
+                          -Dsonar.projectKey=microservices-dev \
+                          -Dsonar.projectName=microservices-dev \
+                          -Dsonar.host.url=$SONAR_HOST_URL \
+                          -Dsonar.login=$SONAR_AUTH_TOKEN
+                    '''
+                }
+            }
+        }
+
+        stage('Quality Gate') {
+            steps {
+                script {
+                    echo "⏳ Waiting for SonarQube Quality Gate..."
+                    timeout(time: 5, unit: 'MINUTES') {
+                        waitForQualityGate abortPipeline: true
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+
+first DEV branch code will get executed for all microservice.
+    checkout done to start execution of Dev branch
+   code testing done, artifact generated and we stored at nexus / any other repo.
+   sonar quality implemented for static code analysis we implemeneted gate to stop 
+   execution of code if failed to match code criteria.
+   once stage pass we will create dockerfile for dev branch -> dev environment
+   after creating image we will scan it through trivy for security perspective
+   then we tag and push docker image to ECR repository.
+   
+
+
+
+
+
+
+
+
+
+
+
+
+---------------------------------
+
+How wireshark has been used in k8 for network level troubleshooting
+
+dev cluster is not required to have same configuration like test & prod. but we need to keep same conf for 
+test and prod.
+    we can tolerate any downtime in dev env . because this env will be not live. but our test and prod env are
+live. if test env goes then then we will get delay for testing. new realease will be delayed thenit will not
+announce i prod. testing is critical for internal only not live for customer.
+
+
+
+dev   - 1 master   8 worker node
+
+test  - 3 master   22 worker node
+
+ prod  - 3 master  22 worker node
+
+storage solution for EKS Cluster- 
+EFS -NAS storage 
+EBS -SAN Storage 
+Network - VPC CNI
+Deployment - we used helm as deployment method.
+
+
+which algorithm working in backend when ectd sycn in beetwen.
+i have 3 master node what is the command to know which node is leader and member.
+why always odd numbering follwoed in cluter 
+
+
+
+grep -i manifests  /var/lib/kubelet/config.yaml
+
+
+************************************************
+In self managed cluster(kubeadm) the control plane component -API server, scheduler, controller, etcd-run as static pods managed by 
+kubelet. manifiest file location /etc/kubernetes/manifests/
+
+
+In EKS, these components are part of  aws-managed control plane, so they do not run as static pods on worker nodes. AWS runs and
+manage tehm in seperate , secure, highly available environment.
+---------------------------------------------------------------------------------------------------
+**Request Flow through API server**
+
+In k8 API Server receives the request only  and processes them through steps authentication, authorization, and admission control-before executing the request.
+
+Authentication  - Every user is having Kubeconfig file. in configfile we have API server url.
+                   there are different ways of authentication.
+                  based on certificate / service account token.
+                  while communicating with api server user they shoud have authnetication, either they should have certificate ,service                   account token.
+                   so first we provide authentication to api server.
+
+ self managed-->    we have bastion node through which we can login to api server , there is Kubeconfig file in bastion node and this configfile we have used to authenticate with API server. this kubeconfig file includes the API server endpoint, CA CERTIFICARE, and client certificate. these are used for secure authentication,and authorization when connecting to API server.
+
+bastion host-(public subnet) --api server(private subnet)
+
+Example- kubeconfig
+
+apiVersion: v1
+clusters:
+- cluster:
+    certificate-authority-data: <CA_DATA>
+    server: https://10.0.0.5:6443
+  name: kubernetes
+contexts:
+- context:
+    cluster: kubernetes
+    user: kubernetes-admin
+  name: kubernetes-admin@kubernetes
+current-context: kubernetes-admin@kubernetes
+users:
+- name: kubernetes-admin
+  user:
+    client-certificate-data: <CERT_DATA>
+    client-key-data: <KEY_DATA>
+
+
+ above file is pressent on bastion node and kubectl uses it to securely talk to API server at https://10.0.0.5:6443.
+   In self managed cluster when we initilize cluster using
+   kubeadm init ---kubeadm automatically creates admin kubeconfig file. (/etc/kubernetes/admin.config ) inside that file there is user called kubernetes-admin-
+   Thats the superuser for your cluster.
+
+authorization -  api server validates roll binding and cluster role binding of user in authorization to ensure whether the user is permitted to perform the requested action.
+
+adminssion controller- admission controller is piece of code that runs inside api server and intercepts every request after authrntication and authorization but before its persist in etcd.
+
+
+
+--------------------------------------------------------------------------------------------------------------------
+
+static pod -
+static pod is managed directly by kubelet, not by the kubernetes API server. kubelet ensures that pod is always running by reading its pod defination file directly from
+local filesystem.
+pod is created by kubelet automatically on node.
+Here any yaml file we put inside /etc/kubernetes/manifiest will automatically become a runnung static pod.
+
+In a self-managed kubeadm cluster, the control-plane components are deployed as static pods on the master node.
+ls /etc/kubernetes/manifiest
+
+etcd.yaml
+kube-apiserver.yaml
+kube-controller-manager.yaml
+kube-scheduler.yaml
+
+each of this yaml defines static pod for the respective control-plane component.
+
+The kubelet on master node automatically run this pods.
+
+Mirror pods:-  static pod created by kubelet and they dont live in etcd but the kubelet reports their status to API server.
+then API server creates mirror pod- mirror pod id read only copies of static pod. just for visibility.
+
+Static pods are used to run control-plane components like the API server, etcd, scheduler, and controller-manager in kubeadm clusters. In contrast, EKS hides this because its control plane is fully managed by AWS.”
+

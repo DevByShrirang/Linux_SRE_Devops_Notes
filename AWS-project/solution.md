@@ -87,7 +87,6 @@ Thresholds can remain default for basic testing
 
 
 
-
 The load balancer has been created and configured successfully.
 
 Task 4: Test the load balancer traffic distribution

@@ -56,6 +56,20 @@ crontab -e
 root@ip-10-0-0-192:~# chmod +x /home/ubuntu/health_check_basics.sh
 
 
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+Minute   Hour    Day of Month   Month    Day of Week
+
+0-59     0-23      1-31         1-12       0-6 ( Sunday to Saturday)
+
+Every saturday at 11 PM
+  *       23         *            *         6
+Minute   Hour    Day of Month   Month    Day of Week
+
+0-59     0-23      1-31         1-12       0-6 ( Sunday to Saturday)
+
+
 
 
 

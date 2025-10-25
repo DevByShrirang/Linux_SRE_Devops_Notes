@@ -9,3 +9,47 @@ ansible all -m setup -a "filter=ansible_memory_mb". -- return only memory-relate
 There are 2 types of facts in ansible
 Default facts- Default facts provide system level facts automatically using setup module.
 Custom facts - custom facts we defined manually when default fact not sufficient to provide required information.
+
+custom facts are stored locally on managed node under /etc/ansible/facts.d/ directory.
+sudo mkdir -p /etc/ansible/facts.d
+sudo vi /etc/ansible/facts.d/custom.fact
+content:-
+[custom]
+application_role=backend
+environment=production
+team=DevOps
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+Adhoc commands:-
+Ansible adhoc command are one line commands which are useful for testing connectivity, managing services, copying files, or running updates on multiple nodes quickly.
+adhoc commands uses Ansible modules- eg ping, copy, apt.
+I used adhoc commands for one-time or verification tasks.-  its very useful to check which nodes are reachable , restarting service across 50 servers. or ensuring package is installed.
+
+
+ansible all -m ping  -- To check ping connectivity of remote servers
+ansible all -a 'df -h' -- To get login information without logging into each server.
+ansible all -m shell -a "uptime"  -- To check uptime of remote server.
+ansible webservers -b -m apt -a "name=nginx state=present update_cache=yes" -- To update packages across multiple nodes.
+ansible webservers -b -m service -a "name=nginx state=restarted"  --Service module to start, stop, restart services.
+ansible webservers -b -m service -a "name=nginx enabled=no" -- disable the service at boot.
+ansible all -m copy -a "src = /root/ansible/shri.txt dest = /opt/shri.txt " - To copy file on remote servers.
+ansible all -m copy -a "content='welcome devops' dest=/opt/shri.txt" - Write content to remote file.
+ansible all -m file -a "dest=/tmp/test.txt state=touch" - Create a file on remote servers
+ansibel all -m file -a "dest=/tmp/test.txt state=absent" - Remove files from remote servers
+ansible all -m file -a "dest=/tmp/devops state=directory mode=0755" - Create directory with permission on rem server.
+ansible all -m user -a "name=devops state=present" - create user on remote server.
+ansible all -m user -a "name=devuser state=absent remove=yes" - Remove user
+ansible all -m user -a "name=devops groups=sudo append=yes"
+ansible all -m apt -a "name=apache2 state=present update_cache=yes" -b - Install package on remote server.
+ansible all -m service -a "name=apache2 state=restarted" -b -Restart a service.
+
+
+Gather facts:-
+  ansible all -m setup - Gather facts such as CPU, Memory, disk , networking.
+  ansible all -m setup -a "filter=ansible_memory_mb" - Memory related facts
+
+shell command:-
+ansible all -m shell -a "uptime"
+ansible all -m shell -a "df -h"
+
+

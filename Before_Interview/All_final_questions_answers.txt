@@ -1142,7 +1142,37 @@ Save the replication configuration — S3 automatically starts replicating objec
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------
 kubernetes interview questions :-
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
+What is resource quota?
+--> A resource quota in k8 is namespace-scoped-object that limits how  much resource (CPU, Memory, number of pod) team or application can consume.
+    Resource quote controlled by API server-->when a new resource created, (eg pod,pv ) first API server check if adding these any resource exceeded the quota
+    if yes then those resource will not scheduled.
+   we used resource-quota together with LimitRange. -LimitRange set per pod limit, ResouceQuota set namespace-wide total.
 
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+ name: team-a-quota
+ namespace: team-a
+spec:
+  hard:
+    pods: "10"
+    requests.cpu: "4"
+    requests.memory: 8Gi
+    limits.cpu: "8"
+    limits.memory: 16Gi
+    persistentvolumeClaim: "5"
+    services: "3"
+
+Important commands:-
+kubectl get resourcequota -n dev -a                              --list quotas in namesoaces
+kubectl  describe resourcequota team-a-quota -n team -a          --show detailed usage and hard limits
+kubectl apply -f quota.yaml                                      -- apply quota
+kubectl delete resourcequota team-a-quota -n team -a             -- delete quota
+kubectl get resourcequota --all-namespace                        --view all quotas cluster wide
+
+
+In namespace we specified resourcequota and resource request and limit and if we created deployment with resourcequota mentioned but not mentioned resource request and limit then api server reject this request.
+    
 
 --------------------------------------------------------------------------------------------------------------------------------------------------------------
 How do you troubleshoot networking issues?

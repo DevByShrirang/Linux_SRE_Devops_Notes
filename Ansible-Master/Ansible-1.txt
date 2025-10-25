@@ -52,4 +52,46 @@ shell command:-
 ansible all -m shell -a "uptime"
 ansible all -m shell -a "df -h"
 
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+PLAYBOOK:
+
+
+installation of NGINX:
+
+nginx_setup.yaml
+name: install and start nginx
+hosts: webservers
+become: yes
+tasks: 
+  - name: Install nginx
+    apt:
+      name: nginx
+      state: present 
+      update_cache: yes
+  - name: start and enable service
+    service:
+       name: nginx
+       state: started
+       enabled: yes
+    
+
+To run the playbook
+ansible-playbook nginx_setup.yaml
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

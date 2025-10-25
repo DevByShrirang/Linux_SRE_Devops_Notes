@@ -1,0 +1,11 @@
+Gathering facts:-
+-Ansible Facts are automatically collected pieces of system information about managed nodes — things like OS, IP, CPU, and memory.
+This process is called gathering facts.
+setup module:-
+handles gathering facts which runs by default at the start of a playbook
+ansible all -m setup-- Get all detailed information of managed node.
+ansible all -m setup -a "filter=ansible_memory_mb". -- return only memory-related facts
+
+There are 2 types of facts in ansible
+Default facts- Default facts provide system level facts automatically using setup module.
+Custom facts - custom facts we defined manually when default fact not sufficient to provide required information.

@@ -1142,6 +1142,21 @@ Save the replication configuration — S3 automatically starts replicating objec
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------
 kubernetes interview questions :-
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
+Q) Suppose you want to scale the pod through command line , what is the kubernete you use to scale up and run the number of pods
+
+kubectl scale deployment <deployment-name> --replicas=<number-of-pods>
+  a)  kubernetes scale command update .spec.replicas field in the deployment.
+    kubernetes will automatically create or delete pods to match desired replica count. the scaling operation is handled by deployment controller. ensuring the desired and ctual state match.
+   b)  kubectl edit deployment <deployment_name>
+
+   c) we can use horizontal pod autoscaler (HPA) to automatically  scale pods based on CPU and memory utilization.
+    kubectl autoscale deployment myapp-deployment --min=2 --max=2 --cpu-percent=80
+
+
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 What is resource quota?
 --> A resource quota in k8 is namespace-scoped-object that limits how  much resource (CPU, Memory, number of pod) team or application can consume.
     Resource quote controlled by API server-->when a new resource created, (eg pod,pv ) first API server check if adding these any resource exceeded the quota
@@ -1503,7 +1518,7 @@ Q)  What sonarqube provide to us?
 
    sonarqube is code quality and security analysis tool which will help us to identify bugs,code smell, vulnerabilities, code duplication in our source code before deployment.
     it basically enforces code quality gates in cicd pipeline- means code will pass to next stage only when it meets defined code quality standard.
-    bugs - logic or runtime errors - null pointer deference
+    bugs - logic or runtime errors - nul    l pointer deference
     code smells - bad coding practices or mantainability issue large functions, unused variables.
     vulnerabilities - security flaws -   SQL injection, hardcoded password
    Duplication -  Repeated code blocks  - copy-paste same logic across files. 

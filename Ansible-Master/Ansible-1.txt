@@ -101,6 +101,27 @@ ansible-playbook nginx_setup.yaml
 
 
 
+-name: installation of docker
+ hosts: webservers
+ become: yes
+ tasks:
+  - name: install docker
+    apt: 
+      name: docker.io
+      state: present
+      update_cache: yes
+  - name: Ensure docker service is running
+    service:
+      name: docker
+      state: started
+      enabled: yes
+  - name: Run Nginx container
+     docker_conatiner:
+       name: nginx
+       image: nginx:latest
+       ports:
+         - "80:80"
+
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
@@ -162,6 +183,7 @@ Typically, handlers are used to perform actions like restarting a service, but o
  I use handlers to perform actions like restarting services or reloading configurations — but only when a task makes a change. This keeps my 
  playbooks efficient and idempotent. For example, I notify an NGINX restart only when the config file changes, using the template module. It avoids 
  unnecessary restarts and keeps automation clean.”
+
 
 
 

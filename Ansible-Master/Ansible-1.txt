@@ -175,6 +175,7 @@ while provisioning Linux servers using Ansible, I often install multiple package
    tasks for each, I use the loop directive with the apt module to iterate over a list of package names. This keeps my playbooks clean, modular, and 
    DRY — and it's fully idempotent.
 
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Ansible handler:-
 
 A handler in Ansible is a special type of task that only runs when it is notified by another task.
@@ -184,6 +185,35 @@ Typically, handlers are used to perform actions like restarting a service, but o
  playbooks efficient and idempotent. For example, I notify an NGINX restart only when the config file changes, using the template module. It avoids 
  unnecessary restarts and keeps automation clean.”
 
+---
+- name: Handler Demo - Restart Nginx only when file changes
+  hosts: webservers
+  become: yes
+
+  tasks:
+    - name: Install Nginx
+      ansible.builtin.apt:
+        name: nginx
+        state: present
+        update_cache: yes
+
+    - name: Deploy index.html to web root
+      ansible.builtin.copy:
+        src: /home/ubuntu/index.html
+        dest: /var/www/html/index.html
+      notify:
+        - Restart Nginx
+
+  handlers:
+    - name: Restart Nginx
+      ansible.builtin.service:
+        name: nginx
+        state: restarted
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Ansible Role:-
 
 
 

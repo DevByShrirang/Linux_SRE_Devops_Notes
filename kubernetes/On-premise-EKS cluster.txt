@@ -101,7 +101,7 @@ kube-apiserver.yaml
 kube-controller-manager.yaml
 kube-scheduler.yaml
 
-each of this yaml defines static pod for the respective control-plane component.
+each of this yaml defines static pod for the respective control-plane component..
 The kubelet on master node automatically run this pods.
 
 Mirror pods:-  static pod created by kubelet and they dont live in etcd but the kubelet reports their status to API server.

@@ -79,6 +79,147 @@ tasks:
 To run the playbook
 ansible-playbook nginx_setup.yaml
 
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+- name: Intro of playbook
+  hosts: all
+  become: yes
+ 
+  tasks:
+    - name: "checking connection via ping"
+      ping:
+
+- name: Intro of playbook
+  hosts: all
+  become: yes
+  gather_facts: false
+
+  tasks:
+    - name: "checking connection via ping"
+      ping:
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+Ansible connected to remote host using default transport protocol called as smart which selects best SSH method depending on controller OS and SSH version.
+ansible uses register keyword to capture the output of module into variable, that variable can then be referenced in later task using jinja2 techniques. this allows us to pass dynamic 
+information from one task to another.
+
+---
+- name: Demo of register variable
+  hosts: webservers
+  become: yes
+  tasks:
+    - name: Check uptime of server
+      command: uptime
+      register: uptime_result
+
+    - name: Print the uptime output
+      debug:
+        var: uptime_result.stdout
+
+What Is debug in Ansible?
+The debug module is used to print messages, variables, or facts to the terminal output during a playbook run.
+It helps you understand what’s going on inside your playbook.
+   
+   - name: check disk usage
+     comamnd: df -h /
+     register: disk_check
+
+   - name: debug disk usage result 
+     debug:
+     msg: "{{ disk_check.stdout }}"
+
+Ensuring disk space before installing something large like docker or database.
+
+
+What is ansible loops?
+
+Ansible loop is used to repeat task of code multiple times in ansible playbook.
+we can install multiple packages with apt + loop.
+
+- name: Install multiple packahges
+  apt:
+     name: "{{ iteam }}"
+     state: present 
+  loop:
+   - nginx:
+   - git
+   - curl
+
+while provisioning Linux servers using Ansible, I often install multiple packages like nginx, git, curl, and others. Instead of writing separate 
+   tasks for each, I use the loop directive with the apt module to iterate over a list of package names. This keeps my playbooks clean, modular, and 
+   DRY — and it's fully idempotent.
+
+Ansible handler:-
+
+A handler in Ansible is a special type of task that only runs when it is notified by another task.
+Typically, handlers are used to perform actions like restarting a service, but only when needed (e.g., after a config file changes).
+
+ I use handlers to perform actions like restarting services or reloading configurations — but only when a task makes a change. This keeps my 
+ playbooks efficient and idempotent. For example, I notify an NGINX restart only when the config file changes, using the template module. It avoids 
+ unnecessary restarts and keeps automation clean.”
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

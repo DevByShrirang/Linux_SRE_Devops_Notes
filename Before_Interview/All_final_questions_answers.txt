@@ -1142,6 +1142,31 @@ Save the replication configuration — S3 automatically starts replicating objec
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------
 kubernetes interview questions :-
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Remembering deployment manifiest
+apiVersion: apps/v1    --आप
+kind: Deployment       --की याद
+metadata:              -मिटा
+  name: nginx-deployment  --ना  सखे
+  labels:               -- लब हमारा
+    app: nginx          -- आप
+spec:                   --से  है       
+  replicas: 3           -रे .
+  selector:             -स..
+    matchLabels:        -मा...
+      app: nginx       --आप
+  template:            --मंदिर
+    metadata:          --मे मिली
+      labels:          -लब
+        app: nginx     -आप
+    spec:              - से हुआ
+      containers:      -कौन सा
+      - name: nginx    -नाम दूँ
+        image: nginx:latest   तस्वीर 
+        ports:    -     पर
+        - containerPort: 80 --कौन सा
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Q) Suppose you want to scale the pod through command line , what is the kubernete you use to scale up and run the number of pods
 
 kubectl scale deployment <deployment-name> --replicas=<number-of-pods>

@@ -30,6 +30,7 @@ ansible all -m ping  -- To check ping connectivity of remote servers
 ansible all -a 'df -h' -- To get login information without logging into each server.
 ansible all -m shell -a "uptime"  -- To check uptime of remote server.
 ansible webservers -b -m apt -a "name=nginx state=present update_cache=yes" -- To update packages across multiple nodes.
+ansible webservers -b -m ansible.builtin.apt -a "name=apache2 state=absent"  - To uninstall package.
 ansible webservers -b -m service -a "name=nginx state=restarted"  --Service module to start, stop, restart services.
 ansible webservers -b -m service -a "name=nginx enabled=no" -- disable the service at boot.
 ansible all -m copy -a "src = /root/ansible/shri.txt dest = /opt/shri.txt " - To copy file on remote servers.
@@ -78,6 +79,8 @@ tasks:
 
 To run the playbook
 ansible-playbook nginx_setup.yaml
+
+ansible-playbook apache_install.yaml --syntax-check   <-- synatx check command.
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -215,8 +218,34 @@ Typically, handlers are used to perform actions like restarting a service, but o
 
 Ansible Role:-
 
+An Ansible role is a structured way to organize playbooks into reusable components. Instead of writing all tasks, variables, handlers, and templates inside one large playbook, we can separate them logically using roles.
+
+Roles make playbooks modular, reusable, and easy to maintain — especially in enterprise environments where multiple teams or projects share similar configurations (like installing Docker, configuring Nginx, or deploying applications).
+
+Each role has its own directory structure with predefined folders such as tasks, handlers, templates, files, vars, defaults, and meta.
+
+For example, I have a jenkins role that installs Jenkins, configures the repo, and ensures the service is running. I can use that same role across multiple environments — dev, test, and prod — just by overriding variables
 
 
+
+roles/
+└── apache/
+    ├── tasks/                      <-- contains main file of execution. main.yml is automatically executed when role euns.
+    │   └── main.yml
+    ├── handlers/                    <-- handlers are triggered by notify directive.
+    │   └── main.yml
+    ├── templates/                  <-- contains jinja2 techniques that can be used to configure filen dynamically.
+    ├── files/                      <-- Contains static files that can be copied to target server.
+    ├── vars/                       <-- define variables with higher precedence
+    │   └── main.yml
+    ├── defaults/                   <-- default variables with lowest precedence.
+    │   └── main.yml
+    └── meta/                        <-- define metadata such as role dependencies.
+        └── main.yml
+
+command to create ansible role
+
+ansible-galaxy init <role_name>
 
 
 

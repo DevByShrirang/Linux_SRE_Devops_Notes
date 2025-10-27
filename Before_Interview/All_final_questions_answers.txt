@@ -409,6 +409,7 @@ You can check it with:
 docker ps -a
 
 
+
 Then you can manually start it:
 
 docker start myapp
@@ -1141,6 +1142,53 @@ Optionally enable replication of delete markers.
 Save the replication configuration — S3 automatically starts replicating objects to the destination bucket.”
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------
 kubernetes interview questions :-
+
+finalizers:-
+ finalizers is metadata field in k8 resource that prevents the objects from being deleted until certein cleanup actions are performed.
+   when we apply finaliers on any resource and we delete it then k8 marks it for deletion(add deletionTimestamp) but the resource stays in cluster until all its finalizers are removed.
+finalizers are used to ensure graceful cleanup of external resources before  the k8 object is premanently deleted.
+
+pvc , namespace custom resources, service LoadBalancer we applied finalizers on this resources.
+
+
+apiVersion: sample.io/v1
+kind: Database
+metadata:
+   name: my-db
+   finalizers:
+     - sample.io/db-cleanup
+spec:
+  dbName: testdb
+
+we created Database/my-db --- then custom controller (operator) creates real database named testdb in aws .
+so there are two things.
+Database/mydb  --> The k8 objects
+testdb         --> External actual database instance.
+
+when we apply
+kubectl delete Database/my-db --> Then k8 sets deletionTimestamp on Database/my-db Object. k8 sets finalizers  (sample.io/db-cleanup), k8 does not delete it yet.
+so controller first delete actual Database instance(testdb)--> once this cleanup is done succesfully the controller removes finalizers.
+
+controller cleanup --> Delete the actual DB instance   --> Outside kubernetes
+kubernetes deletion --> deletes the custom resource objects --> inside kubernetes.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Remembering deployment manifiest

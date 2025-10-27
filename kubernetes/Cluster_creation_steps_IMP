@@ -1,1 +1,130 @@
+We have automated EKS cluster creation using terraform IAC.
+we configured both control plane and worker node component through terraform. we need to set up IAM role, networking, OIDC Provider.
+we need to define provider block with specific region.
+
+we have to create 2 IAM role for Cluster and worker node components
+
+IAM Role for EKS Control plane:-  
+eks.amazonaws.com
+we have to attach policies to control plane 
+AmazonEKSClusterPolicy - EKS will manage cluster components.
+AmazonEKSServicePolicy -  Using this policy EKS will interact with other services.
+AmazonEKSVPCResourceController - To manage VPC rrsources like ENI.'
+
+VVIMP:- when we create EKS cluster we pass IAM role ARN to control plane via role_arn parameter. so trust policy will allow eks.amazonaws.com to assume this role to get permissions to
+       manage cluster related resources.
+
+
+IAM Role for worker node-
+ec2.amazonaws.com
+AmazonEKSWorkerNodePolicy
+AmazonEKS_CNI_Policy (for VPC CNI networking)
+AmazonEC2ContainerRegistryReadOnly (for pulling images from ECR)
+AmazonSSMManagedInstanceCore (for SSM access)
+AmazonS3ReadOnlyAccess (if pods need to read from S3)
+Plus a custom AutoScaler policy that lets the cluster autoscaler scale EC2 nodes.”
+
+Finally, I create an IAM instance profile to attach this role to the worker EC2 instances. instance profile allows us each worker node to assume the  role automatically at startup
+    without needing to configure credenntials nually.
+
+
+the resource aws_eks_cluster creates the EKS control plane. i also use depends_on to make sure all IAM attachements are created before the cluster.
+The resource aws_eks_node_group creates managed node group.
+ since its managed node group , AWS automatically picks the right EKS-optimized AMI so dont need to specify AMI manually.
+
+
+OIDC provider
+
+"**Cluster join process in EKS**":-
+   worker nodes associated with control plane through cluster join process that uses aws-auth configmap. 
+   this configmap maps the worker node IAM role to kubernetes RBAC permissions, allowing the control plane to trust and register those nodes.
+    once this mapping exists , the kubelet on each node authenticates to the EKS API server using the instance IAM role credintials and successfully joins the cluster.
+
+EKS uses IAM-based authentication for worker nodes. without IAM role EKS will not allow authentication of worker node.
+
+
+4️⃣ The aws-auth ConfigMap (in kube-system namespace)
+
+It looks like this (Terraform can create it or AWS does it automatically for managed node groups):
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: aws-auth
+  namespace: kube-system
+data:
+  mapRoles: |
+    - rolearn: arn:aws:iam::<account-id>:role/shrirang-eks-worker1
+      username: system:node:{{EC2PrivateDNSName}}
+      groups:
+        - system:bootstrappers
+        - system:nodes
+
+above configmap tells EKS any EC2 Instance that assumes this IAM role should be trusted and allowed to register as kubernetes nodes.
+when worker node kubelet connect to API server using its IAM credintials , the API sever check its IAM role listed in aws-auth or not.
+  if yes --> Register the node and mark it as reddy.
+      No --> Reject the request.
+
+Kubelet registration process
+
+The kubelet on the worker node contacts the EKS API server using the endpoint and cluster CA certificate.
+These details are stored in /etc/eks/bootstrap.sh when the instance boots.
+
+The kubelet authenticates using a signed request via AWS IAM Authenticator (aws-iam-authenticator).
+
+The control plane verifies the IAM role against the aws-auth ConfigMap.
+
+Once authorized, the node gets added to the cluster and appears in:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

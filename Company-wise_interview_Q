@@ -4,7 +4,7 @@ INFINITE
 Intro
 CI CD setup
 kubernetes 
-there is an pods running state but user cannot access it getting 503 error how to fix it ?
+✅ there is an pods running state but user cannot access it getting 503 error how to fix it ?
 helm 
 there is an application i have deployed but when we apply it it geeting in stuck state how to fix it ?
 aws
@@ -21,10 +21,12 @@ k8s load balancer vs ingress vs appliction load balancer?
 =====
 L2
 =====
+
 Intro?
 what is egress and ingress ?
 there is an ec2 i want tocreate what areiput parametrs will you consider while creating ec2 by using terraform?
 will you create new SG of use existing one ?
+write terraform script Ec2 instance,ebs, and attach ec2 to EBS.
 what is authorization in IAM ?
 there are two accouns ac1 and ac2 how you wil connect with each other to access the resources? I said IAM role with assume the role in account1
 You have an EBS volume of type gp3 attached to your EC2 instance, and now you want to change it to io1.
@@ -441,3 +443,51 @@ how you check the health of docker container have created mysql data base applic
 if the pod state changed from crashloop backoff to ready state will it change the name of pod like earlie was mysql-001 
 terraform there is an ebs there are different env dev env and staging env now i am doing terraform plan but changing the tag of that ebs how will you fix it 
 I want to know the the ip of my mysql container without running exec command in docker as well in k8s
+
+==========
+==========
+
+
+InfoBeans - senior devops-L1 Round
+
+difference between declarative and scripted pipeline.
+how will you manage credintials in jenkins.where you will store and how will you use?
+what are the stages have you used in your jenkins pipelines? till the monitoring
+we need to build the 2 jobs in jenkins what syntax will you used for that ?
+difference between normal ec2 instance and lambda fucntion?
+on which server you are executing all pileline stages?
+difference between security group and NACL
+HOW DO you manage enforce previledge access in IAM in aws
+how would you secure s3 bucket that store sensitive data
+we have created one feature branch on github i need to delete that feature brach from command line what command will you use?
+difference between git reset and git revert?
+what branching strategy will you use in cicd? how do releases of application.
+some issue occured in production env how will you fixx that one
+tell me the difference between docker create and docker run?
+i need to delete some image and container thats status is unused how will you do it
+we have deployed microserves and the container restarting again and again how will you troubleshoot that one
+one microservice is failing because of resource constraint issue so how will you increase resource and memory?
+what is the self heal feature in argocd
+we have k8 cluster that doesnt have namespace and i need to deploy aplication on that cluster will you able to deploy app on cluster?
+how will you manage secrets in kubernetes?
+we need to create 5 vms but i need to execute shell script part of that virtual machine creation suppose i have to install npm, node js while creating those instances how will you do that
+lets say you have created few resources in aws there is some issue in those vm how will you rollback those changes?
+there is script which is running more than 2 hrs there are some scripts which i need to execute again but i need 
+to execute first script in background what command will you use for that 
+what is the difference between du -sh and du -f command.
+i have one folder inside folder having log files i need to keep 30 days logs only before 30 days i need to delete it 
+what is git stash?
+explain the difference between vm and docker container?
+have you created namespaces and eks cluster can you just tell me what are the things need to create while creating eks cluster and what are the parameters you have to provide for that 
+you have VPC with public and private subnets and i have 2 vm in public and 3 vm in privaate so how public subnets vmc communicate with private subnet vm?
+what is the difference between vpc peering and aws private link?
+i have 2 aws acounts i need to establish connection between those 2 accounts how will you do it? 
+tell me type of auto-scaling?
+what are the types of load balancer?
+explain me the process of cluster upgrade.
+i want to block perticular ip in ec2 application how will you do
+what is daemonset.
+what is the exec in terraform
+explain me 3 tier architecture
+you telling that all servers are placed in private subnets then how external users are accessing them
+How internal & external users access application

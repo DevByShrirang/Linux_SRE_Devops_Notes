@@ -447,9 +447,9 @@ I want to know the the ip of my mysql container without running exec command in 
 ==========
 ==========
 
-
+==========
 InfoBeans - senior devops-L1 Round
-
+==========
 difference between declarative and scripted pipeline.
 how will you manage credintials in jenkins.where you will store and how will you use?
 what are the stages have you used in your jenkins pipelines? till the monitoring
@@ -491,3 +491,47 @@ what is the exec in terraform
 explain me 3 tier architecture
 you telling that all servers are placed in private subnets then how external users are accessing them
 How internal & external users access application
+
+
+
+Explain the difference between IAM user and IAM roles?
+principle of least priviledge? how can we inforce this princile in aws
+can you explain the process of setting cross account access using IAM role?
+how would you structure terraform environment for large scale mulit env infrastructurea?
+explain the concept of remote backed and why its important in team env?
+please describe time when you need to import existing in terraform what challenges did you face?
+How we deploy mulit cloud in terraform?
+how do you securely manage secrets in terraform?
+what tools you used for managing terraform code quality?
+you have deployed apllication using helm chart some pods are in pending state what could be reason for that?
+suppose you have deleted all the pods and you want to delete namespace but namespace stuck in terminating state why might this
+ happend and how can you resolve?
+A  node is under memory pressure and pods are being evicted which pods are evicted first one requesting 2 gb and onother requeting 
+18 gb.
+k8 upgradation failing bcz pod distruption bugdet how would you handle that
+what is affinity and anti affinity and where would be used in real scenario.
+deployment having 5 replicas and having 5 nodes and we need to shcedule each pod on one node. one node should have one pod.
+where the kubernetes secrets and cluster configuration stored?
+what is etcd. in eks how we encrypt etcd what is the process for that?
+what is CSI driver in kubernetes? 
+in eks we deploy statefulset and we need pvcs for that what aditional changes on the cluster we need to do?
+we have a pod and we attached pvc to it pvc will be provisioned it will in the bound state and it will attach to pod changes make 
+to clutser before that
+after depployment change rolling restart the load balancer continuously send the production traffic which results in 500 error 
+ how should we handle.
+How does pod authenticate and pull images from ECR?
+Difference between EPSA and pod identity?
+How do you manage sub chart dependancies in helm?
+you are able use dependancy chart directly but it fails when we used in parent chart what could be reason and how would you resolve it?
+Does helm work with OCI chart?
+How do you manage the lifecyle of secrets stored in aws secret manager?
+difference between EBS and EFS?
+How would you use EFS in kubernetes environment? we dont to use EBS we want to use EFS. how would you do that
+there are secrets in k8s you dont want to manage that you dont want to deploy this secrets in there  an external serrvice provder 
+like aws secret manager hashicorp vault how would that service integrate with k8 and what process you have to done.
+how would you fetch secrest from secret manager into k8 env?
+
+
+
+
+

@@ -24,7 +24,7 @@ L2
 
 Intro?
 what is egress and ingress ?
-there is an ec2 i want tocreate what areiput parametrs will you consider while creating ec2 by using terraform?
+there is an ec2 i want to create what areiput parametrs will you consider while creating ec2 by using terraform?
 will you create new SG of use existing one ?
 write terraform script Ec2 instance,ebs, and attach ec2 to EBS.
 what is authorization in IAM ?

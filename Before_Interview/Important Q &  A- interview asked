@@ -136,6 +136,12 @@ What type of apps are there ?
 How do you build an image?
 If I have not mentioned cmd and entry point will it run docker file ?
 
+If I don’t specify CMD or ENTRYPOINT in my Dockerfile, Docker will use whatever is defined in the base image.
+If the base image doesn’t have either, the container will build but exit immediately because there’s no process to run.
+
+For example, the ubuntu image works fine since it has /bin/bash as CMD, but if I use a minimal scratch image, it will fail since no command is defined.”
+
+
 Kubernetes
 
 What is kubernetes?
@@ -145,17 +151,103 @@ What is the difference between configmap and secrets?
 How you will expose application on kubernetes?
 What is pod ?
 If we can store two containers in pod then what is use of second container?
+In Kubernetes, a pod can run multiple containers when they need to work closely together.
+The main container runs the core application, and the second (or sidecar) container adds support functions — like log shipping, monitoring, proxying, or configuration management.
+Both containers share the same network and volumes, which allows them to easily communicate and share data.
+For example, I often use a sidecar container like Fluentd to collect logs from the main app container and push them to CloudWatch or Elasticsearch.”
 
 Helm 
 
 What is helm?
 If I deployed application using helm version 1 and now I deploying new version that is helm 2 there is an issue with helm version 2 how will you solve this?
+helm status my-app -n dev-ns   --> I will check application revision and status
+helm history my-app -n dev-ns
+helm list -n dev-ns
+helm rollback my-app 1 -n dev-ns
+
 
 
 ==============
 inferyx
 ==============
 1. Write a Jenkins declarative pipeline to build a Maven project, run tests, and deploy if the tests pass.
+pipeline {
+    agent any
+
+    tools {
+        maven 'MAVEN_HOME'    // Name of Maven tool configured in Jenkins
+        jdk 'JAVA17_HOME'     // Name of JDK configured in Jenkins
+    }
+
+    environment {
+        APP_NAME = "my-maven-app"
+        DEPLOY_DIR = "/opt/${APP_NAME}"
+    }
+
+    stages {
+
+        stage('Checkout Code') {
+            steps {
+                echo "🔹 Checking out code from Git"
+                git branch: 'main', url: 'https://github.com/your-org/my-maven-app.git'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                echo "🏗️ Building Maven project..."
+                sh 'mvn clean package -DskipTests'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                echo "🧪 Running Unit Tests..."
+                sh 'mvn test'
+            }
+            post {
+                unsuccessful {
+                    echo "❌ Tests failed! Stopping pipeline."
+                    error("Tests did not pass. Build failed.")
+                }
+                success {
+                    echo "✅ All tests passed successfully!"
+                }
+            }
+        }
+
+        stage('Deploy') {
+            when {
+                expression { currentBuild.currentResult == 'SUCCESS' }
+            }
+            steps {
+                echo "🚀 Deploying application..."
+                // Example: Copy WAR/JAR file to deployment directory or server
+                sh '''
+                    mkdir -p ${DEPLOY_DIR}
+                    cp target/*.jar ${DEPLOY_DIR}/
+                    echo "Application deployed successfully at ${DEPLOY_DIR}"
+                '''
+            }
+        }
+    }
+
+    post {
+        always {
+            echo "📦 Cleaning up workspace..."
+            deleteDir()
+        }
+
+        success {
+            echo "🎉 Build completed successfully!"
+        }
+
+        failure {
+            echo "❌ Build failed! Please check logs."
+        }
+    }
+}
+
 2. Write a Bash script to check CPU utilization on a Linux server and send an email if it exceeds 80%.
 3. Write a Terraform configuration to provision an EC2 instance in a specific VPC and subnet, and attach a security group that allows SSH access.
 4. Write an Ansible playbook to:

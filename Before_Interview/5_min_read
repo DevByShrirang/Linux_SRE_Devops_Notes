@@ -1,0 +1,6 @@
+In our setup, we follow a branching model aligned with our CI/CD environments.
+Developers work on feature/* branches — Jenkins only builds, tests, and runs SonarQube and Trivy scans.
+Once merged to develop, Jenkins builds the Docker image, pushes it to ECR, updates the Helm chart, and ArgoCD automatically syncs it to our staging EKS environment.
+After testing, code is merged to main, which triggers the same pipeline but deploys to production.
+
+This way, our deployment is completely automated, environment-specific, and follows GitOps principles through ArgoCD

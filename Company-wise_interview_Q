@@ -23,12 +23,12 @@ L2
 =====
 
 Intro?
-what is egress and ingress ?
+✅ what is egress and ingress ?
 there is an ec2 i want to create what areiput parametrs will you consider while creating ec2 by using terraform?
 will you create new SG of use existing one ?
 write terraform script Ec2 instance,ebs, and attach ec2 to EBS.
 what is authorization in IAM ?
-there are two accouns ac1 and ac2 how you wil connect with each other to access the resources? I said IAM role with assume the role in account1
+✅ there are two accouns ac1 and ac2 how you wil connect with each other to access the resources? I said IAM role with assume the role in account1
 You have an EBS volume of type gp3 attached to your EC2 instance, and now you want to change it to io1.
 How will you do that?
 Will it create a new volume, or will your data remain as it is?
@@ -69,7 +69,6 @@ there is an java app i want deploy it on ec2 without docker and kubertes how wil
 now i want to deploy it via docker without k8s how will you setup jenkins ci cd for that?
 now i want to deploy 20 microservices with helps of docker how will you setup jenkins ci cd for that? how will you make communication between them?
 now i want to deploy 20 microservices with help of k8s how will you setup jenkins ci cd for that? 
-now i want to deploy 20 microservices with help of eks how will you setup jenkins ci cd for that?
 as you mentioned earlier like you are writing separte pipeline for each microservice tommorow i hvae to write 10000 microservices shall i need to write seperate ci cd for the same 
 or any option to avoid this?
 where do you store config files in k8s ? --> i said k8s cluster configmap and secret in secret manager tool

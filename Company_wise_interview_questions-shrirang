@@ -16,3 +16,26 @@ what is the difference in bewteen env run and CMD?
 Have you used helm chart what do you do on it?
 what and when will you use terraform workspace?
 job role you daily perform on daily basis?
+
+
+===========
+Altimetrik
+===========
+
+s3 bucket having 100GB data i  have requirement to move this data different s3 into different region so how do you do that?
+i have specific file in s3 and someone has deleted out of s3 how do you identify who deleted this file? /any way to recover
+i hav ec2 instance i accidently loss my pem file is any way to get it into ec2 instance?
+application in public subnet needs to access database which is in private subnet so how do you establish that connection?
+do you know crosszone load balancing?
+what is the sticky session in load balancing concepts?
+how frequently you are doing your deployments?
+which deployment strategy provides kubernetes?
+after deployment some of the pods  stuck in pending state so what could be the reason?
+do you know whats are probes available and how do we use them?
+i wan to establish communication between pods inside node and inside the cluster not should be able to communicate trhough other node how do you do that
+i want to create 2 ec2 instance using terraform in 3 env.( dev, testing, prod ) and i dont want to create 3 different files (dev.tf, testing.tf..)  i just want one main.tf and run it .when i run terraform apply 
+terraform should create resources in all 3 of my environemnt how to do that?
+how do you mention environments in terraform?
+what are the provisioners in terraform?
+we  both working on same project and we both apply terraform apply on same resource and terraform state corrupted how do we fix this?
+please explain what you have done using helm?

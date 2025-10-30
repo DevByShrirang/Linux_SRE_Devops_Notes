@@ -1001,8 +1001,7 @@ terraform now manages this bucket.
 ---------------------------------------------------------------------------------------------------------------------------------------
 
 Q) how do you manage state file in terraform?
- --> I always manage state file centrally and securely storing in amazon s3 with versioning enabled and state locking
-      using dynamoDB. 
+ --> I always manage state file centrally and securely storing in amazon s3 with versioning enabled and state locking using dynamoDB. 
       this ensures that the state file is not stored locally. so avoid conflicts when multiple team members apply terraform and maintains versining if rollback is needed.
     I also enable s3 bucket versioning and encryption(SSE-S3,KMS) to protect sensitive data present inside state file.
     In dynamoDb table i use specific lock ID that prevents two users from appying changes at the same time.

@@ -11,3 +11,13 @@ helm repo add -
           update
           index
 helm env 
+
+helm template   -->  helm templates locally(dry run) --> helm template myapp ./helm/myapp -f values.yaml
+helm lint       --> for troubleshooting to validate chart --> helm install --dry-run --debug - to test templates before deployment
+helm upgrade --install --deployment happens even if the release doesnt exists
+
+helm list -n production   --> w e can check this. eg we install chart1 then we fail chart2
+we get revision and application status.
+helm history mock-app -n dev-ns
+helm status my-app -n production  --> we get current status(failed/deployed/pending?
+helm rollback myapp 1 -n production -

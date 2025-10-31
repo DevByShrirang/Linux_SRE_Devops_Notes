@@ -532,5 +532,24 @@ how would you fetch secrest from secret manager into k8 env?
 
 
 
-
+2. Day to day activities 
+3. How you will HA architecture on AWS 
+4. VPC endpoint 
+5. There is S3 bucket in ac1 how will access EC2 in ac2
+6. There is an EC2 which is in private subnets how will access it?
+7. With SSM how will access like how you will configure it so we can able to do it in SSM?
+8. Diif betn endpoint and private link ?
+9. IAM role and IAM use difference 
+10. What are the CI CD tools you are using 
+11. How many accounts are you using 
+12. What the env are there 
+13. Is your Jenkins is different on different account in EC2 or same like it installed in same EC2 which used for different env?
+14. How will configure Jenkins to talk with other services in AWS so we can able to required activities over there ?
+15. VPC end point and private link difference 
+16. Any other tools you used 
+17. R u comfortable with python
+18. What are the tasks you have done using python?
+19. What we NAT Gateway 
+20. How you access EC2 in private sub?
+21. How you connect EC2 in private sub ?
 

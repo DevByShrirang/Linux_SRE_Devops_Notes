@@ -18,3 +18,24 @@ each microservice developed by different team
 or different set of developers.
 each microservice is hvaing there own repo ,own build process ,own deployment process its going all individually.
 for each and every repository we have one dockerfile and jenkinsfile 
+
+
+
+How you will HA architecture on AWS.
+
+--> Purpose- To design HA architecture in such way that our application will continue available if any server ,
+     AZ , aws service fail.
+
+compute layer --> To achieve high availability we placed our application servers into multiple AZ with auto-scaling                   enabled.
+                  if anyone zone goes down then traffic will get switch to healthy instance in the other AZ.
+                  I will place load balancer in front of application servers for traffic distributions and failover.
+                  load balancer continuously monitor health check of registerted target and send traffic to healthy                   instance. 
+                  
+database layer   To achieve high availability at database layer we use amazon RDS multi AZ deployment or aurora with
+                 cross-AZ replicas. in primary region database handle read and write operation. these database 
+                  maintain synchronous replication across  multiple AZ inside the same region for durability. 
+                 aurora reader continuously receives asynchronous replication from the primary aurora writer.
+                   failover happens automatically within sec. if the primary database becomes unavailable.
+  
+networking layer - we will configure VPC with multiple public and private instance 
+storage layer

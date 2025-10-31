@@ -48,15 +48,19 @@ Replicate*, PutObject on destination bucket
 3) i hav ec2 instance i accidently loss my pem file is any way to get it into ec2 instance?
 
 
-application in public subnet needs to access database which is in private subnet so how do you establish that connection?
+Q) application in public subnet needs to access database which is in private subnet so how do you establish that connection?
+-->  Both instances are in same VPC, so they can communicate via their private ips.
+     I ensure route tables allow internal communication , and the DB security group allow inbound connections from the application security
+     group on the database port. The connection performs within VPC, - No traffic goes to public internet.
+
 do you know crosszone load balancing?
 what is the sticky session in load balancing concepts?
-how frequently you are doing your deployments?
-   We follow a continuous deployment approach for our non-prod environments and a controlled release cycle for production.
-Code changes from developers are deployed to the dev environment daily through automated Jenkins + ArgoCD pipelines.
-Once validated, the same build is promoted to staging for QA and UAT, usually 2–3 times per week.
-Production releases happen once every two weeks, depending on business approval.
-Since our entire pipeline is automated — build, scan, test, and deploy — we can release on-demand anytime with minimal manual intervention.”
+Q)  how frequently you are doing your deployments?
+     we followed continouous deployment approach for our non-production environments and controlled release cycle for production.
+   code changes form developers are developed to dev environment daily through automated jenkins+Argocd pipelines.
+    once validated , the same build is promoted to staging for QA and UAT , usually 2-3 times per week.
+    production release happens once every two weeks , depending on business approval.
+    since our entire pipeline is automated - build, scan test, deploy - we can release on-demand anytime with minimal manual intervention.
 
 which deployment strategy provides kubernetes?
 Q) After deployment some of the pods  stuck in pending state so what could be the reason?
@@ -68,21 +72,7 @@ c) persistent volume issue- if the requested pvc not present for pod then pod st
 d) Namespace doent have enough quota- kubectl get quota -n <namespace> --> need to increase quota
 c) Nodes didnt have the free ports for the requested pod.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-do you know whats are probes available and how do we use them?
+Q) Do you know whats are probes available and how do we use them?
   --Yes, Kubernetes provides three types of probes — liveness, readiness, and startup probes.
 Liveness probe checks if the container is running properly. If it fails, Kubernetes automatically restarts the container.
 Readiness probe checks if the container is ready to accept traffic. Until it passes, the pod won’t receive requests from the Service.
@@ -96,9 +86,28 @@ only to ready and healthy pods
 i wan to establish communication between pods inside node and inside the cluster not should be able to communicate trhough other node how do you do 
 that
 i want to create 2 ec2 instance using terraform in 3 env.( dev, testing, prod ) and i dont want to create 3 different files (dev.tf, testing.tf..)  
-i just want one main.tf and run it .when i run terraform apply 
-terraform should create resources in all 3 of my environemnt how to do that?
+i just want one main.tf and run it .when i run terraform apply terraform should create resources in all 3 of my environemnt how to do that?
 how do you mention environments in terraform?
-what are the provisioners in terraform?
+
+Q) what are the provisioners in terraform?
+Provisioners in Terraform are used to perform actions on a resource after it’s created — like installing software, running configuration scripts, 
+or executing commands inside the instance.
+Common provisioners include remote-exec, local-exec, and file.
+remote-exec runs commands on the remote resource — for example, installing Jenkins or Docker on an EC2 instance after creation.
+local-exec runs commands on the local machine where Terraform is executed — for example, triggering an Ansible playbook or Jenkins job.
+file copies files from the local system to the remote instance.
+For example, in my projects, I used a remote-exec provisioner to install DevOps tools automatically on EC2 after provisioning.
+But in general, we try to avoid overusing provisioners — instead, we use configuration management tools like Ansible, or custom AMIs, because Terraform’s primary focus is on infrastructure provisioning, not software setup
+
 we  both working on same project and we both apply terraform apply on same resource and terraform state corrupted how do we fix this?
+-->> When both persons working on same projects and they applied terraform apply at same time then state file at local/remote will get corrupt.
+     so first step need to take is to stop both task execution. and we need to inspect manually and restore the valid state from backup.-either from
+the .terraform local backup or s3 remote backend version.
+ Then i'd initialize working directory with terraform init , run terraform refresh to sync the state with real infrastructure, and validate using
+ terraform plan. finally to avoid this issue permentaly i will configure remota backend with state locking.
+mv terraform.tfstate.backup terraform.tfstate   --> terraform init -->terraform refresh --> terraform plan
+
+
+
+
 please explain what you have done using helm?

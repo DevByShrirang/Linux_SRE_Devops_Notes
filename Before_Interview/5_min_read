@@ -4,3 +4,17 @@ Once merged to develop, Jenkins builds the Docker image, pushes it to ECR, updat
 After testing, code is merged to main, which triggers the same pipeline but deploys to production.
 
 This way, our deployment is completely automated, environment-specific, and follows GitOps principles through ArgoCD
+
+
+
+order
+cart
+checkout
+payment
+
+each microservice is having different codebase
+for each and evry microservice there is seperate github repository.
+each microservice developed by different team
+or different set of developers.
+each microservice is hvaing there own repo ,own build process ,own deployment process its going all individually.
+for each and every repository we have one dockerfile and jenkinsfile 

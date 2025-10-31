@@ -23,7 +23,8 @@ Altimetrik
 ===========
 
 1) s3 bucket having 100GB data i  have requirement to move this data different s3 into different region so how do you do that?
---> I have to move data to destination bucket so i will use cross region replication. CRR will automatically copy all existing and future data from source bucket to destination in different 
+--> I have to move data to destination bucket so i will use cross region replication. CRR will automatically copy all existing and future data from 
+source bucket to destination in different 
 AWS refion.
 steps:--I will enable bucket versioning on both bucket because replication requires versioning. 
         1️⃣ Create destination bucket in target region and enable versioning on both buckets.
@@ -45,6 +46,8 @@ Replicate*, PutObject on destination bucket
 
 
 3) i hav ec2 instance i accidently loss my pem file is any way to get it into ec2 instance?
+
+
 application in public subnet needs to access database which is in private subnet so how do you establish that connection?
 do you know crosszone load balancing?
 what is the sticky session in load balancing concepts?
@@ -56,10 +59,44 @@ Production releases happen once every two weeks, depending on business approval.
 Since our entire pipeline is automated — build, scan, test, and deploy — we can release on-demand anytime with minimal manual intervention.”
 
 which deployment strategy provides kubernetes?
-after deployment some of the pods  stuck in pending state so what could be the reason?
+Q) After deployment some of the pods  stuck in pending state so what could be the reason?
+--> pod sheduling failed on nodes because scheduler  unable to place that pods onto nodes due to some reasons.
+  Common root causes- 1) I will check events sections of pods using kubectl describe pod pod-name -n <namespace>
+a) Insufficient CPU-  solution--> we need to scale up nodes.//reduce resource.requests in the deployment yaml 
+b) node didnt match node selector -> sometimes pod is configured to run on specific node if this node unavailable then pod stays pending. 
+c) persistent volume issue- if the requested pvc not present for pod then pod stays pending.-Need to check storage class. verify EBS is in same AZ
+d) Namespace doent have enough quota- kubectl get quota -n <namespace> --> need to increase quota
+c) Nodes didnt have the free ports for the requested pod.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 do you know whats are probes available and how do we use them?
-i wan to establish communication between pods inside node and inside the cluster not should be able to communicate trhough other node how do you do that
-i want to create 2 ec2 instance using terraform in 3 env.( dev, testing, prod ) and i dont want to create 3 different files (dev.tf, testing.tf..)  i just want one main.tf and run it .when i run terraform apply 
+  --Yes, Kubernetes provides three types of probes — liveness, readiness, and startup probes.
+Liveness probe checks if the container is running properly. If it fails, Kubernetes automatically restarts the container.
+Readiness probe checks if the container is ready to accept traffic. Until it passes, the pod won’t receive requests from the Service.
+Startup probe is used for slow-starting applications — it ensures the container finishes initialization before liveness or readiness checks 
+start.
+We can define these probes using httpGet, tcpSocket, or exec commands inside the pod spec.
+By configuring these probes properly, we ensure self-healing behavior in Kubernetes and zero downtime deployments — since traffic always goes
+only to ready and healthy pods
+
+
+i wan to establish communication between pods inside node and inside the cluster not should be able to communicate trhough other node how do you do 
+that
+i want to create 2 ec2 instance using terraform in 3 env.( dev, testing, prod ) and i dont want to create 3 different files (dev.tf, testing.tf..)  
+i just want one main.tf and run it .when i run terraform apply 
 terraform should create resources in all 3 of my environemnt how to do that?
 how do you mention environments in terraform?
 what are the provisioners in terraform?

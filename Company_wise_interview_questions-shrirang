@@ -7,7 +7,7 @@ How much you are comfortable you are with the CICD?
 Which cicd platform you used?
 Securing credintials inside the cicd how will you do?
 copy file from local to remote and remote to local how will you do?
-how you manage the state file
+how you manage the state file 
 how do you manage branching system?
 give me the brief introduction on project you have done?
 how nodes communicated with each other?
@@ -22,13 +22,39 @@ job role you daily perform on daily basis?
 Altimetrik
 ===========
 
-s3 bucket having 100GB data i  have requirement to move this data different s3 into different region so how do you do that?
-i have specific file in s3 and someone has deleted out of s3 how do you identify who deleted this file? /any way to recover
-i hav ec2 instance i accidently loss my pem file is any way to get it into ec2 instance?
+1) s3 bucket having 100GB data i  have requirement to move this data different s3 into different region so how do you do that?
+--> I have to move data to destination bucket so i will use cross region replication. CRR will automatically copy all existing and future data from source bucket to destination in different 
+AWS refion.
+steps:--I will enable bucket versioning on both bucket because replication requires versioning. 
+        1️⃣ Create destination bucket in target region and enable versioning on both buckets.
+2️⃣ Create an IAM role on the source side with a trust policy for S3 and permission policy that allows:
+GetObjectVersion* on source bucket
+Replicate*, PutObject on destination bucket
+3️⃣ Then I’ll configure replication on the source bucket using that IAM role ARN.
+4️⃣ Once done, S3 automatically assumes that role and replicates new objects across regions
+        Then i will create IAM role into source bucket account so s3 will assume this role to perform replication.
+
+2) i have specific file in s3 and someone has deleted out of s3 how do you identify who deleted this file? /any way to recover
+-->  whenever any deletion happens in aws service resources then it will get reflected to cloudtrail logs. cloudtrail is having records of 
+     DeleteObject API event along with username, IAM role, source IP, and timestamp.
+     If versioning is enabled in s3 on bucket then i can simply restore deleted file/object by removing delete marker or retrieving the older 
+     version.
+    if versioning is not enabled then recovery is not possible, but i will recommend enabling s3 versiioning and MFA delete going forward to
+   prevents such events.
+       i also setup cloudwatch alarms on DeleteObjects events to get instant notifications if any deletion happens.
+
+
+3) i hav ec2 instance i accidently loss my pem file is any way to get it into ec2 instance?
 application in public subnet needs to access database which is in private subnet so how do you establish that connection?
 do you know crosszone load balancing?
 what is the sticky session in load balancing concepts?
 how frequently you are doing your deployments?
+   We follow a continuous deployment approach for our non-prod environments and a controlled release cycle for production.
+Code changes from developers are deployed to the dev environment daily through automated Jenkins + ArgoCD pipelines.
+Once validated, the same build is promoted to staging for QA and UAT, usually 2–3 times per week.
+Production releases happen once every two weeks, depending on business approval.
+Since our entire pipeline is automated — build, scan, test, and deploy — we can release on-demand anytime with minimal manual intervention.”
+
 which deployment strategy provides kubernetes?
 after deployment some of the pods  stuck in pending state so what could be the reason?
 do you know whats are probes available and how do we use them?

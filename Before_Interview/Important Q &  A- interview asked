@@ -622,3 +622,28 @@ How would you use EFS in kubernetes environment? we dont to use EBS we want to u
 there are secrets in k8s you dont want to manage that you dont want to deploy this secrets in there  an external serrvice provder 
 like aws secret manager hashicorp vault how would that service integrate with k8 and what process you have to done.
 how would you fetch secrest from secret manager into k8 env?
+
+===========
+INFINITE
+===========
+
+2. Day to day activities 
+3. How you will HA architecture on AWS 
+4. VPC endpoint 
+5. There is S3 bucket in ac1 how will access EC2 in ac2
+6. There is an EC2 which is in private subnets how will access it?
+7. With SSM how will access like how you will configure it so we can able to do it in SSM?
+8. Diif betn endpoint and private link ?
+9. IAM role and IAM use difference 
+10. What are the CI CD tools you are using 
+11. How many accounts are you using 
+12. What the env are there 
+13. Is your Jenkins is different on different account in EC2 or same like it installed in same EC2 which used for different env?
+14. How will configure Jenkins to talk with other services in AWS so we can able to required activities over there ?
+15. VPC end point and private link difference 
+16. Any other tools you used 
+17. R u comfortable with python
+18. What are the tasks you have done using python?
+19. What we NAT Gateway 
+20. How you access EC2 in private sub?
+21. How you connect EC2 in private sub ?

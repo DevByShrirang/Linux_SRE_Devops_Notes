@@ -1,0 +1,100 @@
+
+SRE INTERVIEW TERMINOLOGY - COMPLETE REFERENCE
+
+1. SLA (Service Level Agreement)
+Formal commitment to customers about reliability or uptime (e.g., 99.9%). Business-level, may have penalties.
+
+2. SLO (Service Level Objective)
+Internal engineering target to maintain SLA (e.g., 99.95%). Defines acceptable reliability threshold.
+
+3. SLI (Service Level Indicator)
+Actual metric used to measure reliability (e.g., latency, error rate, availability).
+
+4. Error Budget
+Allowed failure = 100% - SLO. Balances reliability and release speed.
+
+5. Toil
+Manual, repetitive, automatable operational work that doesn’t scale. SRE goal: eliminate it via automation.
+
+6. MTTR / MTBF / MTTA
+MTTR – Mean Time to Recovery (restore service)
+MTBF – Mean Time Between Failures
+MTTA – Mean Time to Acknowledge (detect incident)
+
+7. Incident / Outage / Postmortem
+Incident – unplanned disruption
+Postmortem – blameless review to identify root cause and prevention steps
+
+8. Monitoring vs Alerting
+Monitoring = observe metrics; Alerting = trigger action on threshold breach
+
+9. Runbook / Playbook
+Step-by-step guide to resolve known issues and reduce MTTR.
+
+10. Blameless Postmortem
+Root cause analysis without blaming individuals; focuses on process improvement.
+
+11. Change Management
+Safe deployment control using canary, blue-green, or feature flags.
+
+12. Capacity Planning
+Forecasting compute/network/storage needs to meet future load.
+
+13. Blameless Culture
+Encourages transparency and learning from failure instead of punishment.
+
+14. Reliability vs Velocity
+Balancing uptime (reliability) with release speed (velocity) using error budgets.
+
+15. Auto-Remediation / Self-Healing
+Automated recovery (restart pods, scale up nodes) without manual intervention.
+
+16. Golden Signals
+Four key user-facing metrics: Latency, Traffic, Errors, Saturation.
+
+17. Error Budget Policy
+Defines what to do when error budget is consumed (slow/freeze deploys).
+
+18. Availability Calculation
+Availability = (Total Time - Downtime) / Total Time * 100
+99.9% = 43 min/month; 99.99% = 4.3 min/month.
+
+19. Observability
+Understanding why systems fail. Pillars: Metrics, Logs, Traces.
+
+20. Chaos Engineering
+Simulating controlled failures to test resilience (e.g., Gremlin, Chaos Mesh).
+
+21. SLx Triangle Summary
+SLI → Measures | SLO → Target | SLA → Commitment.
+
+22. Service Health Dashboard
+Visual display of SLOs, uptime, and incidents (Grafana, Dynatrace).
+
+23. On-Call Rotation
+24x7 operational support rotation among SREs.
+
+24. Incident Severity (SEV Levels)
+Categorizes impact: SEV1 = critical, SEV2 = major, SEV3 = minor.
+
+25. Root Cause Analysis (RCA)
+Detailed investigation of failure reasons.
+
+26. Alert Fatigue
+Too many non-actionable alerts; reduced attention to real incidents.
+
+27. Error Budget Burn Rate
+Rate at which reliability errors consume your error budget.
+
+28. Release Freeze / Launch Freeze
+Pause new deployments when reliability targets not met.
+
+29. Mean Time to Detect (MTTD)
+Average time to detect an issue after it occurs.
+
+30. Service Ownership
+Each SRE team owns reliability for its service end-to-end.
+
+---
+Summary:
+SRE focuses on reliability via SLI/SLO/SLA, reducing toil, automation, observability, and blameless culture.

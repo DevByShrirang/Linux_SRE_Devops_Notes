@@ -1,1 +1,34 @@
+Startup probe  //  liveness probe  // readiness probe
+1) liveness probe - The function of this probe is used to check application health inside container and ensure application running.
+                  if probe fail, then kubernetes assumes container is stuck and unhealthy and automatically restarts it.
+livenessProbe:
+  httpGet:
+    path: /health
+    port: 8080
+  intialDelaySecond: 10
+  periodSecond: 5
+
+2) Readiness probe:- The function of this probe is to check whether aplication is ready or not to accept traffic.
+    if readiness probes fails then k8  removes the pod from service endpoint -so no traffic routed to it until its healthy again.
+readinessProbe
+  httpGet:
+   path: /reeady
+   port: 8080
+  intialDelaySecond: 5
+  periodSeconds: 3
+
+3) Startup probe:-
+    startup probe checks the application before checked by other probes. Startup probe ignore liveness and readiness failure.
+     once this probe completed successfully then other probe take over.
+ 
+The Kubelet on each node executes these probes (either HTTP GET, TCP socket, or command execution) against the container.
+Based on success or failure:
+
+Liveness → decides to restart the container.
+Readiness → adds/removes the Pod from Service endpoints.
+Startup → delays liveness checks for slow apps.
+Why we use probes
+
+We use these probes to make applications self-healing, highly available, and resilient inside Kubernetes.
+They allow Kubernetes to automatically detect failures, reroute traffic, and recover containers — without manual intervention.
 

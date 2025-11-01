@@ -2,3 +2,40 @@ In EKS , Authentication is handled through IAM , and authorization through RBAC.
 In EKS each worker node join the cluster using IAM role. IAM roll supports nodes to register  with EKS control plane.
 The Node agent from node uses this IAM role to auhenticate with the EKS control plane and do register in the cluster.
 This registration process happened through aws-auth Configmap.
+
+When you want to access EKS cluster from bastion node. we need to add arn to auth file.
+Below command to check IAM role of bastion host.
+[ec2-user@ip-10-0-1-91 ~]$ aws sts get-caller-identity
+{
+    "UserId": "AROAWN26JLESDXA4ZV4RK:i-007e7e2045f7f6bb2",
+    "Account": "442042505508",
+    "Arn": "arn:aws:sts::442042505508:assumed-role/Jumphost-iam-role07/i-007e7e2045f7f6bb2"
+
+# Please edit the object below. Lines beginning with a '#' will be ignored,
+# and an empty file will abort the edit. If an error occurs while saving this file will be
+# reopened with the relevant failures.
+#
+apiVersion: v1
+data:
+  mapRoles: |
+    - rolearn: arn:aws:iam::442042505508:role/shrirang-eks-worker1
+      groups:
+      - system:bootstrappers
+      - system:nodes
+      username: system:node:{{EC2PrivateDNSName}}
+    - rolearn: arn:aws:iam::442042505508:role/Jumphost-iam-role07
+      username: bastion
+      groups:
+      - system:masters
+kind: ConfigMap
+metadata:
+  creationTimestamp: "2025-11-01T04:11:00Z"
+  name: aws-auth
+  namespace: kube-system
+  resourceVersion: "18210"
+  uid: fcc04631-1214-4fd4-9530-ac9bbc356fad
+
+
+
+
+

@@ -1,0 +1,4 @@
+In EKS , Authentication is handled through IAM , and authorization through RBAC.
+In EKS each worker node join the cluster using IAM role. IAM roll supports nodes to register  with EKS control plane.
+The Node agent from node uses this IAM role to auhenticate with the EKS control plane and do register in the cluster.
+This registration process happened through aws-auth Configmap.

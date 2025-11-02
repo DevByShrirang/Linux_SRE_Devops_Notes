@@ -39,3 +39,26 @@ database layer   To achieve high availability at database layer we use amazon RD
   
 networking layer - we will configure VPC with multiple public and private instance 
 storage layer
+
+
+dev   - 1 master   8 worker node
+
+test  - 3 master   22 worker node
+
+ prod  - 3 master  22 worker node
+
+storage solution for EKS Cluster- 
+EFS -NAS storage 
+EBS -SAN Storage 
+Network - VPC CNI
+Deployment - we used helm as deployment method.
+
+
+which algorithm working in bakcned when ectd sycn in beetwen.
+i have 3 master node what is the command to know which node is leader and member.
+why always odd numbering follwoed in cluter 
+
+
+api service , etcd, controller , scheduler they are running on staic pod concept
+
+grep -i manifests  /var/lib/kubelet/config.yaml

@@ -127,3 +127,34 @@ If there are 43,200 minutes in a month,
 
 If we exceed that, it means we’ve consumed the full error budget — and that often triggers actions like halting new releases or 
 improving reliability before proceeding further.”
+
+----------------------------------------------------------------------------------------------------------------------------------
+
+
+Toil -
+“Toil is manual, repetitive, and automatable work that doesn’t add long-term value.
+For example, manually restarting pods, creating users, or running deployment scripts by hand — all are toil.
+SREs aim to reduce toil through automation — by using Jenkins, Ansible, Terraform, or Kubernetes operators.
+Google suggests keeping toil under 50% of an SRE’s time. That way, the rest can go to engineering and improving reliability.”
+
+----------------------------------------------------------------------------------------------------------------------------------
+Blameless Postmortems - 
+“A blameless postmortem is a process to analyze incidents without blaming individuals.
+The focus is on understanding what happened, why it happened, and how to prevent it in the future.
+Key principles:
+1. No blame: Focus on system failures, not people.
+2. Psychological safety: Encourage open discussion without fear of punishment.
+3. Actionable outcomes: Identify specific steps to improve systems and processes.
+4. Transparency: Share findings with the team to foster learning.
+5. Continuous improvement: Use insights to enhance reliability and prevent future incidents.
+Example structure of a blameless postmortem:
+- Incident summary
+- Timeline of events
+- Root cause analysis
+- Contributing factors
+- Lessons learned
+- Action items for improvement
+By following these principles, teams can learn from failures and improve system reliability without creating a culture of fear or blame.”
+
+Blameless postmortems promotes a culture of trust and Continuous improvement, which is a core SRE principle.
+

@@ -1,0 +1,28 @@
+
+
+Latency - Latency tell us how much time taken by request to complete.
+        latency consist of both successful and failed requests.
+        suppose if any application facing higher latency this will consider as performance degradation of application.
+         we track p95 , p99 latency - meaning 95% and 99% of requests completed within that time frame.
+
+**higher latency- performance degradation.**
+
+Traffic - traffic shows how much application load/requests handled by system.
+        web app - request per second  (rps)
+        db app  - query per second (qps)
+        microservice - incoming api calls 
+
+monitoring of application traffic help us to understand traffic usage pattern by various applications. on the basis of this pattern we done planning of resources. (adding pod, adding ec2 instance, )
+
+Errors-
+  we calculated error rates on the basis of failed requests. (error 5xx)
+  we can identify application bugs , failure thorugh continuously monitoring of error rates.
+  if error rate increased suddenly from 0.1% to 5% so we will consider as something failure.
+
+
+saturation:-
+  saturation terms shows that resource utilization of system. like cpu utilization, , memory, disk i/o, 
+  when saturation of system increases then latency aslo increases and started getting errors.
+  Example: if CPU is constantly above 90% or memory usage is high, your system is saturated — and it’s time to scale up or optimize.”
+
+  We have monitoring these four sinals well, we can detect most production issues before they impact the user.

@@ -1,0 +1,44 @@
+Understanding the k8 release:-
+Kubernetes moves fast. Every few months, there’s a new release waiting to be tested and deployed. Teams often find themselves balancing upgrades
+with daily operations. One delay turns into another, and before they know it, the version they run is nearing end of life. The pressure builds 
+quietly.
+Each release needs planning, testing, and coordination across tools and environments. It’s not the upgrades that tire teams, it’s the constant 
+chase to keep everything in sync. Kubernetes follows semantic versioning. Each release has three parts: major, minor, and patch.
+v1.34.1 --> here v1 is major version. .34 is a Minor version.  .1 is a patch version.
+
+Major version:- Changes that may break existing APIs or setup.
+Minor Version:- New features added without breaking what already works.
+patch version: - small fixes or improvements to make things stable.
+
+kubernetes runs predictable four month release cycle.
+12 months of active support provided by kubernetes also  2 month of maintainance before it reaches end of life.
+kubernetes follows 14-month support window. missing the window means running the version with no patches,no fixes,and no support.
+
+1) Kube-apiserver- Always the highest version.(eg 1.34) - All other components should match or be one minor version lower..
+2) controller manager/scheduler/cloud controller- can be one minor version lower than the API server.(v1.33 if API server is v1.34)
+3) kubelet - can lag by one minor version.
+4) Kubectl - can be one minor version ahead or behind the API server (works safely from v1.33 to v1.35 with v1.34)
+
+
+How to Prepare for EOL (End of Life)
+1) Track Your Current Version
+Check your cluster version with kubectl version --short. Compare it against the Kubernetes Releases page to see when support ends.
+
+2) Plan Two Upgrades Ahead
+Always keep your cluster within two minor versions of the latest release. This avoids rushed, multi-version jumps later.
+
+3) Use a Staging Cluster
+Test upgrades in a non-production environment first. Validate workloads, controllers, and CRDs for compatibility.
+
+4) Read Deprecation Notes
+Review the “Deprecations and Removals” section in the release notes. Many breakages come from ignored API changes.
+
+5)  Update Add-ons and Tools
+Ensure CNI plugins, Ingress controllers, Helm charts, and monitoring tools match your target version.
+
+6) Automate Upgrade Checks
+Use tools like kubeadm upgrade plan or managed service dashboards (EKS, GKE, AKS) to schedule and track upgrade timelines.
+
+7) Keeping upgrades small and steady makes EOL planning part of regular maintenance, not a last minute crisis.
+
+

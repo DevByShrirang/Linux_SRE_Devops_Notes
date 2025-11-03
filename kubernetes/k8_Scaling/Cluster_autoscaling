@@ -1,0 +1,21 @@
+
+HPA Scales resources after CPU/Memory crosses threshold?
+--> HPA depends on metrics server (scarpes metrics every 15 sec)
+    so even pod CPU suddenly spikes from 20% to 90%.
+    the HPA only reacts after the next metrics cycle. which means there is lag of 15-30 second before scaling starts.
+  Then new pod take time to pull the image and starts(another 10-30 sec)
+   
+se lower stabilization window or predictive scaling (KEDA, custom metrics).
+Keep images pre-pulled on nodes.
+Use warm pods (ready but idle) in critical workloads.
+
+Pod scheduling and image pulls take extra time.
+shceduler - scheduler find node to schedule pod.
+             if no node exists, then cluster autoscaler creates new.
+            once node is ready then k8 pulls the images
+             Then the pod starts- runs readiness/liveness probe->finally ready
+
+Metrics Server updates every 15 seconds
+metrics server scarpes kubelets every 15 sec.
+we can tune metrics server intervals (metrics-resolution=10s)
+but lower intervals means more API traffic 

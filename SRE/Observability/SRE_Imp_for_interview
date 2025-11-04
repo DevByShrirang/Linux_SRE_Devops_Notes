@@ -155,6 +155,12 @@ Example structure of a blameless postmortem:
 - Lessons learned
 - Action items for improvement
 By following these principles, teams can learn from failures and improve system reliability without creating a culture of fear or blame.”
-
 Blameless postmortems promotes a culture of trust and Continuous improvement, which is a core SRE principle.
+
+
+
+
+
+
+
 

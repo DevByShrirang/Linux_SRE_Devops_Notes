@@ -6,6 +6,11 @@ are successful in a month, that 99.5% is the SLI.
 SLO (Service Level Objective) is the target or goal for that metric. It defines what level of reliability we want to achieve. 
 For example, our SLO might state that 99.9% of API requests should succeed per month.
 
+90% of users  should experience page load times under 1 seconds.
+95% of users should experience page load times under 1.5 seconds.
+99% of users should experience page load times under 2 seconds.
+
+
 SLA (Service Level Agreement) is a formal contract or agreement between the service provider and the customer. It includes the 
 SLO, but also defines penalties or compensations if the target isn’t met. For instance, if uptime goes below 99.9%, the customer 
 might get a service credit or refund.

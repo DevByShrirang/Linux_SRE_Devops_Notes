@@ -54,6 +54,11 @@ Q) application in public subnet needs to access database which is in private sub
      group on the database port. The connection performs within VPC, - No traffic goes to public internet.
 
 do you know crosszone load balancing?
+    Cross-Zone Load Balancing allows an AWS Load Balancer to distribute incoming traffic evenly across all targets in all Availability Zones.
+Without it, each load balancer node only sends traffic to targets in its own AZ, which can cause uneven load if target counts differ between AZs.
+Enabling it improves availability and performance — ALB has it enabled by default, while NLB and CLB can be configured to use it.
+For NLBs, there’s a small inter-AZ data transfer cost to consider
+
 what is the sticky session in load balancing concepts?
 Q)  how frequently you are doing your deployments?
      we followed continouous deployment approach for our non-production environments and controlled release cycle for production.

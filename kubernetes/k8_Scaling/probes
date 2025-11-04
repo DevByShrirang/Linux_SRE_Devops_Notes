@@ -11,7 +11,7 @@ livenessProbe:
 2) Readiness probe:- The function of this probe is to check whether aplication is ready or not to accept traffic.
     if readiness probes fails then k8  removes the pod from service endpoint -so no traffic routed to it until its healthy again.
 readinessProbe
-  httpGet:
+  httpGet: 
    path: /reeady
    port: 8080
   intialDelaySecond: 5

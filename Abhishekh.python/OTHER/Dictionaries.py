@@ -1,1 +1,0 @@
-makrs = {'Hindi': 80}

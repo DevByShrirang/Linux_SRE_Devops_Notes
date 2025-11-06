@@ -40,7 +40,6 @@ That’s how all three connect — SLI feeds into SLO, and SLO becomes part of t
 
 “MTTA means Mean Time To Acknowledge.
 It measures how long it takes for the team to acknowledge an alert after it’s triggered.
-
 Basically — when an incident occurs, how quickly did we respond?
 
 👉 Formula:
@@ -163,6 +162,20 @@ Example structure of a blameless postmortem:
 - Action items for improvement
 By following these principles, teams can learn from failures and improve system reliability without creating a culture of fear or blame.”
 Blameless postmortems promotes a culture of trust and Continuous improvement, which is a core SRE principle.
+
+| Metric   | Full Form                      | Meaning                                                    | Simple Example                                                                            |
+| -------- | ------------------------------ | ---------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| **MTTD** | Mean Time To Detect            | Average time taken to detect that an incident has occurred | If an API goes down at 10:00 and alert fires at 10:02 → 2 min detection time              |
+| **MTTA** | Mean Time To Acknowledge       | Time taken to acknowledge the alert after it’s triggered   | If alert came at 10:02 and engineer acknowledged at 10:04 → 2 min MTTA                    |
+| **MTTR** | Mean Time To Resolve / Recover | Average time to fix the issue and restore service          | If service is back by 10:10 → 8 min MTTR                                                  |
+| **MTBF** | Mean Time Between Failures     | Average time between two incidents/failures                | If system runs 30 days without issue, next incident occurs after 30 days → MTBF = 30 days |
+
+we reduced MTTD using below alert rules.
+rate(http_request_total{status=~"5.."}[1m]) >0.05
+If 5 % of request fails for more than minute the alert fires immediately.
+
+MTTA-
+We also added a Slack bot to auto-post alerts in our incident-response channel — so the team collaborates instantly
 
 
 

@@ -9,6 +9,8 @@ For example, our SLO might state that 99.9% of API requests should succeed per m
 90% of users  should experience page load times under 1 seconds.
 95% of users should experience page load times under 1.5 seconds.
 99% of users should experience page load times under 2 seconds.
+payment API has an SLO of 99.9% uptime. We track that in Grafana, and if the error budget drops below threshold, we pause new releases 
+and focus on improving reliability.”
 
 
 SLA (Service Level Agreement) is a formal contract or agreement between the service provider and the customer. It includes the 

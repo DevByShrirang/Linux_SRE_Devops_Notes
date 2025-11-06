@@ -1,3 +1,0 @@
-import function as important_function
-
-important_function

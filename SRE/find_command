@@ -1,0 +1,26 @@
+find <path> <condition> <actions>
+
+| Action                              | Vim Command | Notes                               |
+| ----------------------------------- | ----------- | ----------------------------------- |
+| Go to last line                     | `G`         | Just press **Shift + g**            |
+| Go to first line                    | `gg`        | Opposite of `G`                     |
+| Go to specific line                 | `:N`        | Example: `:50` takes you to line 50 |
+| Go to last line + enter insert mode | `GA`        | Appends at the end of the file      |
+
+
+find /  - search from root directory
+find .  - search from current directory.
+
+find- command is used for searching files and directories based on name, size, type, permission, modification time etc
+      find /home -type d  --> find all directories under /home.
+      find /home -type f  --> find all regular files 
+      find / -type f -size +100M  --> find files larger than +100M.
+      find /var/log -type f -mtime -7 --> find files modified in last 7 days.
+      find / -type f -perm 777  -->  find files with 777 permissions.
+
+find all .log files inside /var/log and its subdirectories.-- find /var/log -name "*log"
+find file by name  --> find /home -name "config.yaml"
+    case sensitive --> find /home -iname "config.yaml"
+find all configuration files in /etc --> find /etc -type f -name "*.conf"
+find file greater than 100MB --->  find /var/log -size +100M
+find files larger than 500 Mb in /tmp and delete --> find /tmp -type f -name "*.log" -size +500M -exec rm -i {} \;

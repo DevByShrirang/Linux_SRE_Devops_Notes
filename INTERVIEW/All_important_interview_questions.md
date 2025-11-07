@@ -1117,7 +1117,7 @@ Q) What is the difference between a Security Group and a Network ACL (NACL)?
 
 “A Security Group and a Network ACL (NACL) both control traffic in a VPC, but they work at different layers and serve different purposes.
 
-A Security Group acts as a virtual firewall for EC2 instances — it controls inbound and outbound traffic at the instance level.
+A Security Group acts as a virtual firewall for EC2 instances — it controls inbound and outbound traffic at the instance level..
 It is stateful, meaning if you allow inbound traffic, the response is automatically allowed out, even if there’s no explicit outbound rule.
 
 A Network ACL (NACL), on the other hand, operates at the subnet level.

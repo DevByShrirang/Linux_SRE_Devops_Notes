@@ -116,3 +116,18 @@ mv terraform.tfstate.backup terraform.tfstate   --> terraform init -->terraform 
 
 
 please explain what you have done using helm?
+
+
+
+what is persistent volume
+how to keep your pods always running
+Tell me steps of cluster creation & use of policise you have used for control plane and worker node.
+what is the namespace.
+what is the replicasets
+explain me the use of route 53
+how will you use route 53 and cloudfront
+
+Explain me the dockerfile each and every steps
+How will you reduce the size of dockerfile.
+
+

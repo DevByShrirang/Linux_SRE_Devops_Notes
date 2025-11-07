@@ -95,7 +95,8 @@ gpg - GNU privacy guard - this command used to encrypt, decrypt, sign and verify
           cat /etc/passwd |  grep jenkins
           sudo passwd jenkins
 /etc/sudoers -- Which user can execute command as root
-                     To assign jenkins users limited root access. allowing them to restart service or deploy code without full admin privileges.
+                     To assign jenkins users limited root access. allowing them to restart service or deploy code without full 
+                     admin privileges.
                      jenkins ALL(ALL) NOPASSWD: /bin/systemctl restart jenkins
 
 /etc/hosts  --  static hostname 

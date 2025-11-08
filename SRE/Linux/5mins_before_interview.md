@@ -42,3 +42,42 @@ ps aux | grep Z
 /etc/crontab --> define scheduled tasks.
 /etc/systemd/system  --> manages services with systemd.
                          I wrote systemd unit to automatically start the docker daemon and jenkins service on ec2 reboot.
+
+----------------------------------------------------------------------------------------------------------------------------------
+
+useradd   adduser
+
+Both commands are used to create user accounts in Linux, but there’s a key difference in how they work internally.
+
+useradd is a low-level binary provided by the shadow-utils package. It creates the user account but doesn’t set passwords, home directories, or shell interactively unless we pass specific options.
+For example:
+
+useradd -m -s /bin/bash devuser
+passwd devuser
+
+
+Here -m creates the home directory and -s sets the shell.
+
+adduser is actually a Perl or shell script wrapper around useradd. It provides an interactive experience — it automatically asks for details like password, full name, and creates the home directory by default.
+It’s more user-friendly and commonly used in Debian/Ubuntu systems.
+
+In short, I’d say:
+useradd → low-level, non-interactive command
+adduser → high-level, interactive wrapper for user creation.
+
+----------------------------------------------------------------------------------------------------------------------------------
+
+password policy - chage
+chage -M 90 username
+-M 90 → sets maximum password age to 90 days.
+Forces the user to change their password every 90 days.
+
+passwd -l username  --> Lock Account
+passwd -u username  --> unlock Account
+
+Why important:
+
+“If an employee leaves the team, or if we suspect a compromised account, we don’t delete it immediately — we lock it first.
+This disables login without deleting files or history.
+In DevOps/SRE, this is critical for incident response and access control management.
+

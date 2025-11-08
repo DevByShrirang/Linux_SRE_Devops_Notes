@@ -19,3 +19,6 @@ dmesg |   tail  --> dmesg | tail -20 -- shows kernel level messages.(crashes, OO
 Zombie process:- A Zombie process is a process that has completed execution (it’s dead), but its entry still exists in the process table because its parent hasn’t read its exit status yet.
 Zombie process not consuming CPU or memory but they occupy a PID slot
 ps aux | grep Z
+
+
+Hello

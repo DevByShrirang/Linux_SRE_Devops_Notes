@@ -528,26 +528,15 @@ docker rmi -f <image_id>
 IQ-Asked-we have created one feature branch on github i need to delete that feature brach from command line what command will you use?
 
 1️⃣ Delete the branch locally
-git branch -d feature/<branch-name>
-
-
--d → safe delete (Git will prevent deletion if branch is not merged).
-
--D → force delete (even if branch is not merged).
-
+git branch -d feature/<branch-name>  here -d is used for safe deletion(Git will prevent deletion if branch is not merged)
+                                          -D → force delete (even if branch is not merged).
 Example:
-
 git branch -d feature/login-page
 
 2️⃣ Delete the branch remotely
 git push origin --delete feature/<branch-name>
-
-
 Example:
-
 git push origin --delete feature/login-page
-
-
 This removes the branch from the GitHub remote repository.
 
 ✅ Summary
@@ -568,8 +557,7 @@ In AWS, enforcing least privilege access is critical for security and compliance
 🔹 1️⃣ Use IAM Policies (Least Privilege Principle)
 
 I create fine-grained policies that grant only the permissions required for a user or service.
-
-Avoid using AdministratorAccess unless absolutely necessary.
+**Avoid using AdministratorAccess unless absolutely necessary.**
 
 Example: If a developer needs S3 read/write access for a specific bucket:
 
@@ -587,15 +575,12 @@ Example: If a developer needs S3 read/write access for a specific bucket:
 🔹 2️⃣ Use IAM Groups and Roles
 
 Assign users to groups based on job functions (Dev, QA, Admin) and attach policies at the group level.
-
 Use IAM roles for EC2, Lambda, or other services instead of embedding credentials.
-
 Roles can be assumed temporarily, which reduces long-term credential exposure.
 
 🔹 3️⃣ Enforce MFA (Multi-Factor Authentication)
 
 Require MFA for all privileged users (especially admin accounts).
-
 You can enforce it via IAM policies:
 
 "Condition": {
@@ -609,9 +594,7 @@ For users with administrative privileges, I apply permission boundaries to restr
 🔹 5️⃣ Enable Monitoring & Alerts
 
 Enable AWS CloudTrail to log all API calls.
-
 Use AWS Config rules or IAM Access Analyzer to detect unused or excessive permissions.
-
 Regularly review IAM roles and policies for over-permission.
 
 🔹 6️⃣ Temporary Credentials
@@ -654,17 +637,13 @@ Example bucket policy:
 }
 
 
-This denies all non-HTTPS requests.
-
-Enable block public access on the bucket.
+This denies all non-HTTPS requests. Enable block public access on the bucket.
 
 🔹 2️⃣ Encryption
 
 Server-Side Encryption (SSE):
 
-SSE-S3: AWS managed keys
-
-SSE-KMS: AWS KMS managed keys for better audit & control
+SSE-S3: AWS managed keys  , SSE-KMS: AWS KMS managed keys for better audit & control
 
 Client-Side Encryption if needed, before uploading sensitive data.
 

@@ -9,6 +9,7 @@ pidstat --> pidstat -p <PID> 1 - Monitor resource usage(CPU/ I/O) per process dy
 pmap --> pmap -x <PID> -- Detailed memory map of process.
 pstree --> pstree -p    -- Displays processes in hierachical(tree) format.to view parent child relatioship between processes.
 lsof --> lsof -p <PID>  --lsof -p :8080 --lists open files/sockets by processes.
+netstat -tulpn | grep <port_number> - To check which process using perticular port.
 ss -tulnp --shows all listening ports with associated processes.- To check which service is bound with which port.
 strace -p <PID>  - Trace system calls made by process.
 vmstat 2 5 --> display CPU, Memory, and I/O statistics every 2 sec (5 iterations)
@@ -80,4 +81,65 @@ Why important:
 “If an employee leaves the team, or if we suspect a compromised account, we don’t delete it immediately — we lock it first.
 This disables login without deleting files or history.
 In DevOps/SRE, this is critical for incident response and access control management.
+
+----------------------------------------------------------------------------------------------------------------------------------
+
+inode -
+ An inode is data structure in linux that stores metadata about a file.eg- permission, size and disk location. but not the filename itself.
+ Check inode usage df -i 
+ check inode number  ls -i
+
+
+ Hard Link:--A hard link is like creating another name for the same file — both point to the same inode.
+So even if the original file is deleted, the data still exists through the hard link.
+
+A soft link:-
+(or symbolic link) is more like a shortcut — it points to the file name, not the inode.
+If the original file is deleted, the soft link becomes broken because its target no longer exists.
+
+Hard link → same inode, same data.
+Soft link → different inode, just a pointer to the file name
+
+----------------------------------------------------------------------------------------------------------------------------------
+
+Sticky bit :-
+The sticky bit is a special permission used on directories to prevent users from deleting or renaming other users’ files inside that directory.
+It’s commonly used on shared directories like /tmp, where everyone has write access, but you only want users to delete their own files — not anyone else’s.
+
+chmod +t directory_name - set sticky bit
+
+
+**systemd**
+
+systemd is the default init system and service manager in most modern Linux distributions like RHEL, Ubuntu, and Amazon Linux.
+It’s responsible for booting the system, managing background services (daemons), controlling startup order, and handling dependencies.
+
+/lib/systemd/system/ --> Default OS services.
+/etc/systemd/system/ --> Custom or user-defined services
+
+systemctl start <service>
+systemctl stop <service>
+systemctl restart <service>
+systemctl status <service>
+systemctl enable <service>
+systemctl disable <service>
+systemctl daemon-reload
+
+=================================================================================================================================
+
+strace:-
+
+strace stands for system call trace.
+It’s a powerful Linux command used to trace the system calls and signals that a process makes while it’s running.
+
+In simple terms, it shows how a process interacts with the Linux kernel — for example, when it opens files, reads data, writes to sockets, creates processes, or accesses the network.
+
+As an SRE or DevOps engineer, I use strace mainly for debugging, performance analysis, and troubleshooting application or service startup issues
+
+cgroup:-
+
+Cgroup stands for Control Group.
+It’s a Linux kernel feature that allows you to limit, isolate, and monitor the resource usage of a group of processes — like CPU, memory, disk I/O, or network bandwidth.
+Cgroups are the foundation of containers like Docker and Kubernetes — when you run a container, Docker uses cgroups to apply resource limits set in the container configuration (like --memory, --cpus)
+
 

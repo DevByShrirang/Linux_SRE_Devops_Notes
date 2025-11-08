@@ -20,5 +20,25 @@ Zombie process:- A Zombie process is a process that has completed execution (itâ
 Zombie process not consuming CPU or memory but they occupy a PID slot
 ps aux | grep Z
 
+----------------------------------------------------------------------------------------------------------------------------------
+**Top 10 Linux directories**
 
-Hello
+/etc/passwd -  Stores user account details (username, UID, GID, homeDir, shell)
+/etc/shadow -  stores encrypted user passwords (root-readable only)
+/etc/sudoers - Which user can execute command as root.
+                To assign jenkins users limited root access. allowing them to restart service or deploy code without full 
+                     admin privileges.
+                     jenkins ALL(ALL) NOPASSWD: /bin/systemctl restart jenkins
+/etc/hosts - static hostname 
+/etc/resolve.conf - define DNS nameservers for name resolution.
+/etc/fstab -  filesystem and mount points.
+               used /etc/fstab while attaching EBS volumes to ec2 servers.
+/var/log --  stores all system log -auth, kernel, application logs.
+/etc/network/interfaces  -->   used for network configuration(ip, gateway,DNS)
+/etc/netplan/*.yaml --> Ussed to configure static IPs for private EC2 servers and update network setting during VPN /VPC setting.
+~/.bashrc & ~/.bash_profile --> used for setting up shell environment variable , alises and PATH.
+                              have added custom env variables and PATH exports in .bashrc for tools like kubectl ,helm and terraform to make them globally available for the jenkins or EC2 server.
+
+/etc/crontab --> define scheduled tasks.
+/etc/systemd/system  --> manages services with systemd.
+                         I wrote systemd unit to automatically start the docker daemon and jenkins service on ec2 reboot.

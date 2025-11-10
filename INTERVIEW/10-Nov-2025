@@ -1,0 +1,44 @@
+incedo
+
+1)you joned organization where 15+ microservices are running .and allocated one task to creare one microservice what action and steps you need to follow/
+2)i want to expose service externally how will you do it>
+both frontend and backend microservices deployed in different namespace are they able to communicate with each other?
+3)i have froentend pod, backendpod, database pods i want to restrict froentend pod access to database pods how i will do it?
+4)have you work on SSL and other configuration. how are you managing SSL upgrade part (SSL certificate) which is attached your application.how you are renewing it . maintaining it.
+5)what branching startegy are you using for your current project
+which branch are you using ,which branch is pointing to which env,how you will performing release activity , when you are going to merge.
+6)when feature branch work done where we tested in which environment before merging it to dev 
+7)after post production release you observed hotfix so how will you handle it?
+8)from which branch you will create hotfix branch and in which branch will you merge?
+9) give me possibility of merge conflicts? 
+10) we create feature from master and merge it to master . branch cut will create new branch from master only
+what might be challenges.. lots of projects also following master as develop branch what challenges might they facing.
+11) suppose developement has done image has been created how will update image in respective environment yaml file. (dev value file) is it manual process/automatic.
+if automatic then how this process happens is there any shell command..
+
+
+Intelliswift
+how will design cicd jenkins pipeline for dockerized application on aws.
+during deployment process if you find dependency failed you need new dependency it could be upgrade of your appplication and lets say its new dependency how will handle it 
+key difference between cloud formation and terraform. when will you choose one over the other.
+what is state file?
+you deployed something using terraform and me as your teammate i changed something manually like memory so how this situation will be handle?
+what is the rotation of IAM access keys? how will you setup rotation.
+what is assume role? suppose once your task done then what happened? what is the benifit of this 
+when you implement cicd pipeline how will you manage secrets.
+how you ensure your pipeline is secured?
+you implementing cicd pipeline what are location you stoored keys so that you can access them? (aws secrets manager)
+you should use secret manager or any external vault which will you use.
+walk me through how would you monitor and troubleshoot faining deployment in k8 cluster. what we be your overall approach to monitor and troubleshoot. what parts will you check from network side.
+can you writ comamnd get events of node and it should be sorted by timestamp
+what is liveness probes?
+difference between startup , liveness and readiness probes?
+if you want to drain node what are the best practices to do it?
+
+
+
+
+
+
+
+

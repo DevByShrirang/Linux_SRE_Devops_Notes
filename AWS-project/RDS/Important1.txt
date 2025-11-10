@@ -1,0 +1,154 @@
+Amazon RDS Interview Q&A (Notepad Version)
+
+1. What is Amazon RDS and why is it used?
+Amazon RDS (Relational Database Service) is a managed service by AWS that makes it easy to set up, operate, and scale relational databases in the cloud.
+It automates tasks like provisioning, patching, backup, recovery, and scaling — allowing teams to focus on application logic instead of database administration.
+
+2. What are the supported database engines in RDS?
+RDS supports six main database engines:
+
+Amazon Aurora (MySQL/PostgreSQL compatible)
+
+MySQL
+
+PostgreSQL
+
+MariaDB
+
+Oracle
+
+Microsoft SQL Server
+
+3. What is the difference between RDS and a database running on EC2?
+
+RDS: Fully managed by AWS (automated backups, patching, HA, scaling).
+
+EC2 Database: You install and manage everything manually — OS, patches, backups, scaling, and replication.
+In short, RDS = managed service; EC2 = self-managed database.
+
+4. What is Multi-AZ deployment in RDS and why is it important?
+Multi-AZ creates a synchronous standby replica of your database in another Availability Zone.
+It ensures high availability and automatic failover in case the primary DB or AZ fails.
+Used mainly for disaster recovery and business continuity, not for read scaling.
+
+5. What are Read Replicas, and how are they different from Multi-AZ?
+Read Replicas are asynchronous copies of your primary DB used for read scaling (e.g., handling heavy read traffic).
+
+Multi-AZ: Used for high availability (standby, no direct reads).
+
+Read Replica: Used for performance scaling (active read traffic).
+
+6. How does RDS handle backups?
+RDS supports automated backups and manual snapshots.
+Automated backups are taken daily during the backup window and stored in S3.
+Transaction logs are also backed up every 5 minutes for point-in-time recovery.
+
+7. What is the difference between automated backups and manual snapshots?
+
+Automated Backups: Created automatically by RDS, retained for a configurable period (1–35 days). Deleted when instance is deleted.
+
+Manual Snapshots: Created manually by the user, retained indefinitely until deleted.
+
+8. How do you enable high availability in RDS?
+By deploying the instance in Multi-AZ mode.
+RDS automatically provisions a standby replica in another AZ and performs automatic failover during outages.
+
+9. Can you encrypt data in RDS? How?
+Yes. You can enable encryption at rest using AWS KMS when creating the RDS instance.
+Data in transit can also be encrypted using SSL/TLS connections.
+Encryption cannot be enabled later — you must create a new encrypted copy if needed.
+
+10. What are some ways to improve RDS performance?
+
+Use Read Replicas for read-heavy workloads.
+
+Choose appropriate instance types and storage (IOPS).
+
+Optimize indexes and queries.
+
+Enable Performance Insights for monitoring.
+
+Tune DB parameter groups for better caching and memory management.
+
+11. What are DB parameter groups and option groups in RDS?
+
+Parameter Group: Controls DB engine configuration settings (like max_connections, innodb_buffer_pool_size).
+
+Option Group: Enables additional features like Oracle TDE or SQL Server audit.
+Together, they help customize and extend database functionality.
+
+12. How does scaling work in RDS (vertical vs horizontal)?
+
+Vertical Scaling: Increasing instance size (CPU, memory, IOPS).
+
+Horizontal Scaling: Adding Read Replicas to distribute read traffic.
+RDS supports both, but write scaling usually needs vertical scaling.
+
+13. What is the maximum storage size supported by RDS?
+It varies by engine:
+
+Up to 128 TiB for MySQL, PostgreSQL, and MariaDB.
+
+Up to 64 TiB for SQL Server.
+
+Up to 128 TiB for Amazon Aurora.
+
+14. How can you secure your RDS instance?
+
+Place RDS inside a VPC private subnet.
+
+Use security groups and network ACLs.
+
+Enable encryption (KMS).
+
+Enforce IAM authentication and SSL.
+
+Restrict public access and manage access using parameter groups and least-privilege principles.
+
+15. How does RDS integrate with VPC and security groups?
+RDS instances are launched inside a VPC, allowing control over networking using subnets and route tables.
+Security groups act as virtual firewalls, controlling inbound and outbound traffic to your RDS instance.
+
+16. What is the difference between storage types (General Purpose SSD, Provisioned IOPS, Magnetic) in RDS?
+
+General Purpose SSD (gp3/gp2): Balanced performance, cost-effective.
+
+Provisioned IOPS (io1/io2): High performance for IO-intensive workloads (OLTP).
+
+Magnetic: Legacy, slower, cheaper (rarely used now).
+
+17. Can you stop and start an RDS instance? What are the limitations?
+Yes, you can stop/start RDS instances except Aurora.
+Limitations:
+
+You can stop it for up to 7 days, after which it auto-starts.
+
+Billing for storage continues even when stopped.
+
+Multi-AZ and cluster configurations have restrictions.
+
+18. What is Amazon Aurora and how is it different from standard RDS engines?
+Amazon Aurora is a cloud-native, high-performance database compatible with MySQL and PostgreSQL.
+Differences:
+
+Up to 5× faster than MySQL and 3× faster than PostgreSQL.
+
+Automatically replicates data 6 times across 3 AZs.
+
+Supports auto-scaling storage up to 128 TiB.
+
+Offers serverless and global database options.
+
+19. How do you migrate an on-premises database to RDS?
+You can use:
+
+AWS Database Migration Service (DMS) – minimal downtime migration.
+
+AWS Schema Conversion Tool (SCT) – for heterogeneous migrations.
+
+Backup and Restore or Export/Import depending on DB engine.
+
+20. What happens during a maintenance window in RDS?
+During the maintenance window, AWS applies patches, updates, and minor version upgrades.
+If Multi-AZ is enabled, failover occurs to minimize downtime.
+If not, you might experience a short interruption while maintenance completes.

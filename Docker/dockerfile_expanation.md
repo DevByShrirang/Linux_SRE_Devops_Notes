@@ -19,7 +19,8 @@ RUN mvn clean package
 “Here I pull the Maven image with JDK 11.
 First, I copy only pom.xml and download dependencies. This leverages Docker layer caching, so if only source code changes, dependencies are not redownloaded every time.
 Then maven will download all dependencies defined in pom.xml into local Maven repository.(~/.m2/repository). maven dependencies plugin will download all direct dependencies of project.
-Then I copy the source and run mvn clean package to generate the JAR.”
+
+
 
 **Very important**
 maven dependencies plugin will download all direct project dependencies present in pom.xml(~/.m2/repositroy) docker caches this layer. means suppsoe when we want change only source code (src) dependencies dont need to be download again.
@@ -62,3 +63,8 @@ This way, I can override profiles easily at runtime without changing the image.�
 ✅ Wrap-up Summary
 
 👉 “In short, this Dockerfile follows best practices — multi-stage for smaller images, caching dependencies for faster builds, running as non-root for security, JVM tuning with JAVA_OPTS, and flexible runtime configuration using ENTRYPOINT + CMD. This is production-ready, efficient, and secure.”
+
+
+during the build stage maven reads pom.xml to download dependencies
+and compile the source code into runnable JAR file which is then
+copied into final runtime image

@@ -28,7 +28,7 @@ RUN useradd -ms /bin/bash appuser
 USER appuser
 
 #set jvm option
-ENV JAVA_OPTS="-Xms256m -Xmx512m"
+ENV JAVA_OPTS="-Xms256m -Xmx512m"     
 
 #set ENTRYPOINT & CMD
 ENTRYPOINT ["java", "-jar", "app.jar"]

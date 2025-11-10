@@ -8,7 +8,9 @@ virtualization-
  ENV -  ENV defines environment variable that persist in the final image and can be accessed both during build and runtime.
 
  **Difference between RUN & CMD**
- RUN is used to execute command to install any packages/dependencies,compiling code, setting up configuration at build time so that resulting image has everything needed to run the application.
+ RUN executes shell commands inside the image during the build stage. It’s used to install dependencies or set up the environment, and each RUN instruction creates a new image layer.
+
+ADD is used to copy files from the local context or even download files from a remote URL into the image. However, the best practice is to use COPY for local files and use RUN curl or RUN wget for remote downloads to keep Dockerfiles clean and predictable.
 In my dockerfile.
 RUN mvn dependency: resolve  - Resolving dependencies at build time. docker caching layer created to to minimize build time.
 RUN mvn clean package  - compiling the java code and packaging it into JAR file.

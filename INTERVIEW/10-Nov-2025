@@ -9,7 +9,7 @@ both frontend and backend microservices deployed in different namespace are they
 which branch are you using ,which branch is pointing to which env,how you will performing release activity , when you are going to merge.
 6)when feature branch work done where we tested in which environment before merging it to dev 
 7)after post production release you observed hotfix so how will you handle it?
-8)from which branch you will create hotfix branch and in which branch will you merge?
+8)from which branch you will create hotfix branch and in which branch will you merge?.
 9) give me possibility of merge conflicts? 
 10) we create feature from master and merge it to master . branch cut will create new branch from master only
 what might be challenges.. lots of projects also following master as develop branch what challenges might they facing.

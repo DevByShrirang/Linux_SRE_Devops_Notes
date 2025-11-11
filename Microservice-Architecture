@@ -1,0 +1,78 @@
+git token-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
+https://github.com/DevByShrirang/Microservices-E-Commerce-eks-project01.git
+
+frontend - dockerfile,              jenkinsfile   --- only exposed to external using service load balancer.
+productcatalogservice - dockerfile, jenkinsfile
+cartservice  - dockerfile,          jenkinsfile
+checkoutservice - dockerfile,       jenkinsfile
+recommedationservice - dockerfile,  jenkinsfile
+currencyservice - dockerfile,       jenkinsfile
+adservice  - dockerfile,            jenkinsfile
+emailservice - dockerfile,          jenkinsfile
+loadgenerator - dockerfile,         jenkinsfile
+paymentservice - dockerfile,        jenkinsfile
+shippingservice - dockerfile,       jenkinsfile
+----------------------------------------------------------------------------------------------------------
+we will expose only adservice to external using load balancer service.
+every microservice manages its own data store. All services run in the same namespace for easier service discovery, and each Deployment can auto-scale using HPA based on traffic, ensuring high 
+availability and resilience. 
+Only the microservices that need to store stateful or business data require persistent storage — for example, services like checkout, payment, 
+or product catalog that save orders, transactions, or product details.
+1) checkoutservice has its own (MYSQL DB) for order details. product  catalog service stores product info in its own DB, and payment service has a (postgresSQl) backend for payment records.
+other services cant query those database directly -they must use service API.--This ensures loose coupling, independent scaling, and fault isolation.
+Many other services, such as frontend, email, recommendation, or ad services, are stateless — they don’t store data locally, so they don’t need persistent volumes.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------------------
+iam role- master                                     iam role - worker
+AmazonEKSClusterPolicy                                        AmazonEKSWorkerNodePolicy
+AmazonEKSServicePolicy                                        AmazonEKS_CNI_Policy
+AmazonEKSVPCResourceController                                AmazonSSMManagedInstanceCore
+                                                              AmazonEC2ContainerRegistryReadOnly
+                                                              S3ReadOnlyAccess
+                                                              autoscaler
+
+
+aws_iam_instance_profile
+
+
+
+Command to check ECR repositroies
+
+aws ecr describe-repositories --region us-east-2
+
+
+
+------------------
+microservice 
+
+
+how to rotate access keys using OIDC?

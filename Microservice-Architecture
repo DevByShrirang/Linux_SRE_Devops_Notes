@@ -13,7 +13,7 @@ loadgenerator - dockerfile,         jenkinsfile
 paymentservice - dockerfile,        jenkinsfile
 shippingservice - dockerfile,       jenkinsfile
 ----------------------------------------------------------------------------------------------------------
-we will expose only adservice to external using load balancer service.
+we will expose only frontend to external using load balancer service.
 every microservice manages its own data store. All services run in the same namespace for easier service discovery, and each Deployment can auto-scale using HPA based on traffic, ensuring high 
 availability and resilience. 
 Only the microservices that need to store stateful or business data require persistent storage — for example, services like checkout, payment, 
